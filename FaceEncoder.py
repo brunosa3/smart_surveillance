@@ -1,7 +1,4 @@
 
-
-
-
 class GenerateFaces: 
         
     # The init method or constructor
@@ -22,9 +19,10 @@ class GenerateFaces:
         self.plot = plot
         self.container = {}
         self.import_FaceNet()
+        self.batch = 0
 #         self.DB = self.get_existingDB(self, path=None)
         
-    def run(self, archive = True):
+    def run(self, archive = True, batch_size = 100):
         from tqdm import tqdm 
         import matplotlib.pyplot as plt
         from mtcnn.mtcnn import MTCNN
@@ -34,6 +32,11 @@ class GenerateFaces:
 
                         
         for pics in tqdm(self.path):
+            
+            if pics in list(set([v["path_pic_orig"] for v in self.DB.values()])):
+                print("this image is alredy in the Database {}".format(pics))
+                continue
+            
             # load the photograph
             self.filename = pics
 #             print(self.filename)
@@ -43,21 +46,39 @@ class GenerateFaces:
 
                 register_heif_opener()
 
-                image = Image.open(self.filename)
-                self.pixels = image.__array__()
+                try:
+                    image = Image.open(self.filename)
+                    self.pixels = image.__array__()                
+                except Exception as e:
+                    print("there was an error in this image {} - maybe it is truncated?".format(self.filename))
+                    print(e)
+                    continue
+                
                 
             elif ("PNG" == self.filename.split(".")[-1]) | ("png"== self.filename.split(".")[-1]):
                 
                 # png have 4 channels R,G,B and alpha for transparency --> here we get rid of it
-                image = Image.open(self.filename).convert('RGBA')
-                background = Image.new('RGBA', image.size, (255,255,255))
-                alpha_composite = Image.alpha_composite(background, image)
-                alpha_composite_3 = alpha_composite.convert('RGB')
+                try:
+                    image = Image.open(self.filename).convert('RGBA')
+                    background = Image.new('RGBA', image.size, (255,255,255))
+                    alpha_composite = Image.alpha_composite(background, image)
+                    alpha_composite_3 = alpha_composite.convert('RGB')
+                    
+                except Exception as e:
+                    print("there was an error in this image {} - maybe it is truncated?".format(self.filename))
+                    print(e)
+                    continue
+                
                 
                 self.pixels = np.asarray(alpha_composite_3)
 
             else:
-                self.pixels = plt.imread(self.filename)
+                try:
+                    self.pixels = plt.imread(self.filename)
+                except Exception as e:
+                    print("there was an error in this image {} - maybe it is truncated?".format(self.filename))
+                    print(e)
+                    continue
                 
                 
             # create the detector, using default weights
@@ -67,11 +88,24 @@ class GenerateFaces:
             # display faces on the original image
             self.crop_faces_centered_boxes_for_encoding()
             
+            
+            if archive: 
+                if self.batch > batch_size:
+                    print("archive batch")
+                    self.archive_database()
+                    self.batch = 0
+                else:
+                    self.batch += 1
+            
 #         self.get_database()
 #         self.get_existingDB()
             
         if archive:
+            print("preparing final archive of FaceDB ... \nlooped through {} pictures, detected {} faces in {} pictures".format(len(self.path), len(self.container), len(np.unique([v["path_pic_orig"] for v in self.container.values()]))))
             self.archive_database()
+            print("archived 'FaceDB' sucessfully!!!")
+            print("There are currently {} faces in FaceDB encoded".format(len(self.container)))
+            
         else:
             print("DB was not archived")
         
