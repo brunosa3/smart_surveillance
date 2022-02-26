@@ -236,10 +236,6 @@ class GenerateFaces:
 #         from functools import reduce
 #         return reduce(lambda dict1, dict2: dict(zip(dict1.keys() + dict2.keys(), dict1.values() + dict2.values())), dicts)
 
-    def get_existingDB(self):    
-        if self.DB == None:
-            print("There is no pre-existing FaceDB.")            
-        return self.container       
     
     def archive_database(self):
         import json
@@ -251,10 +247,9 @@ class GenerateFaces:
         if self.DB != None:
             self.container.update(self.DB)            
         return self.container
-    
-    def is_already_processed(self):
-        return self.path
+
                 
+
 
 ######################################################################################################
 ###
@@ -265,8 +260,9 @@ class FaceCluster:
      
     def __init__(self, file_path="/mnt/golem/frodo/Database/FaceDB.json", IDs = None):
         import json
+        import os
                
-        if not (os.path.isfile(file_path) and os.access(path, os.R_OK)):
+        if not (os.path.isfile(file_path) and os.access(file_path, os.R_OK)):
             print('The input encoding file, ' + str(path) + ' does not exists or unreadable')
             exit()
             
@@ -309,7 +305,7 @@ class FaceCluster:
 
 class FaceImageGenerator:
     
-    def GenerateImages(self, labels, OutputFolderName = "ClusteredFaces", 
+    def GenerateImages(self, labels, cluster_dir="/mnt/golem/frodo/", OutputFolderName = "ClusteredFaces", 
                                             MontageOutputFolder = "Montage",
                        file_path= "/mnt/golem/frodo/Database/FaceDB.json",
                        IDs = None
@@ -321,8 +317,9 @@ class FaceImageGenerator:
         import numpy as np
         import cv2
         from imutils import build_montages
+        import taqdm
         
-        OutputFolder = "/mnt/golem/frodo/" + OutputFolderName
+        OutputFolder = cluster_dir + OutputFolderName
  
         if not os.path.exists(OutputFolder):
             os.makedirs(OutputFolder)
@@ -352,7 +349,7 @@ class FaceImageGenerator:
         (labelIDs, labelIDs_freq) = np.unique(labels, return_counts=True)
          
         # loop over the unique face integers
-        for labelID, labelID_freq in zip(labelIDs, labelIDs_freq):
+        for labelID, labelID_freq in taqdm(zip(labelIDs, labelIDs_freq)):
             # find all indexes into the `data` array
             # that belong to the current label ID, then
             # randomly sample a maximum of 25 indexes
@@ -393,3 +390,78 @@ class FaceImageGenerator:
                MontageFolderPath, "FaceCluster_" + str(labelID) + ".jpg")
                 
             cv2.imwrite(MontageFilenamePath, montage)
+            
+################################################################################################################################
+###
+###
+################################################################################################################################
+
+class FaceRecognition:
+    def who_is_it(self, image_path, database):
+        import numpy as np
+        import tensorflow as tf
+        """
+        Implements face recognition for the office by finding who is the person on the image_path image.
+
+        Arguments:
+            image_path -- path to an image
+            database -- database containing image encodings along with the name of the person on the image
+
+        Returns:
+            min_dist -- the minimum distance between image_path encoding and the encodings from the database
+            identity -- string, the name prediction for the person on image_path
+        """
+
+        ### START CODE HERE
+        ## Step 1: Compute the target "encoding" for the image. Use img_to_encoding() see example above.
+        self.import_FaceNet()
+        self.encoding =  self.img_to_encoding(image_path)
+
+        ## Step 2: Find the closest encoding ##
+        # Initialize "min_dist" to a large value, say 100
+        min_dist = 100
+        
+        # Loop over the database dictionary's names and encodings.
+        for (name, db_enc) in database.items():
+
+            # Compute L2 distance between the target "encoding" and the current db_enc from the database.
+
+#             dist = (np.vstack(db_enc["encodings"]) - self.encoding)**2
+#             dist = np.sum(dist, axis=1)
+#             dist = np.min(np.sqrt(dist))
+        
+            dist = np.linalg.norm(tf.subtract(np.vstack(db_enc["encodings"]), self.encoding), axis=1, ord=2).min()
+           
+#             dist = np.array([np.mean(np.array(dist))])
+
+            # If this distance is less than the min_dist, then set min_dist to dist, and identity to name. (≈ 3 lines)
+            if dist < min_dist:
+                min_dist = dist
+                identity = name
+                
+        if min_dist > 0.75:
+            print("Not in the database.")
+        else:
+            print ("it's " + str(identity) + ", the distance is " + str(min_dist))
+
+        return min_dist, identity
+    
+    def import_FaceNet(self, model_path='../dat/models/keras-facenet-h5/model.json', 
+                       weight_path = '../dat/models/keras-facenet-h5/model.h5'):
+
+        from tensorflow.keras.models import model_from_json
+        json_file = open(model_path, 'r')
+        loaded_model_json = json_file.read()
+        json_file.close()
+        self.FaceNet = model_from_json(loaded_model_json)
+        self.FaceNet.load_weights(weight_path)
+    
+    def img_to_encoding(self, image_path):
+        import tensorflow as tf  
+        import numpy as np
+        img = tf.keras.preprocessing.image.load_img(image_path, target_size=(160, 160))
+        img = np.around(np.array(img) / 255.0, decimals=12)
+        x_train = np.expand_dims(img, axis=0)
+        embedding = self.FaceNet.predict_on_batch(x_train)
+        return embedding / np.linalg.norm(embedding, ord=2)
+    
