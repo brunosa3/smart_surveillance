@@ -94,6 +94,7 @@ class GenerateFaces:
         # initiate the batch number - number of pictures which where alredy processed in a certain batch
         self.batch = 0
 #         self.DB = self.get_existingDB(self, path=None)
+        self.database = database
 
         
     def run(self, archive = True, batch_size = 100):
@@ -492,7 +493,7 @@ class GenerateFaces:
         """
         import json
         DB = self.get_database()        
-        with open('/mnt/golem/frodo/Database/FaceDB.json', 'w') as fp:
+        with open(self.database, 'w') as fp:
             json.dump(DB, fp)
             
     def get_database(self):
