@@ -2,6 +2,9 @@ import argparse
 import os
 import re
 from FaceEncoder import *
+import warnings
+warnings.filterwarnings('ignore')
+
 
 def str_to_bool(value):
     if isinstance(value, bool):
@@ -51,7 +54,7 @@ def parse_args():
     
     # run the pipline with only faces that were detected above the seted threshold - I run it for any detected face (thr=0) such
     # that you can judge yourself after with the clustering - there you could also decide what confidence you want to have for the clustering
-    parser.add_argument('--thr', default=0, help='run the pipline with only faces that were detected above the seted threshold')
+    parser.add_argument('--thr', type=float, default='0', nargs='?', help='run the pipline with only faces that were detected above the seted threshold')
     
     # in case you would like to see the extracted faces in while the pipline is running - not recommended
     parser.add_argument('--plot', type=str_to_bool, nargs='?', const=True, default=False, help='do you want to get plots?')
