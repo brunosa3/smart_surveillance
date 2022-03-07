@@ -838,8 +838,101 @@ class FaceImageGenerator:
 ###
 ################################################################################################################################
 
+# class FaceRecognition:
+#     def who_is_it(self, image_path, database, model_path='../dat/models/keras-facenet-h5/model.json', weight_path = '../dat/models/keras-facenet-h5/model.h5'):
+#         import numpy as np
+#         import tensorflow as tf
+#         """
+#         Implements face recognition for the office by finding who is the person on the image_path image.
+        
+#         ...
+        
+#         Parameter
+#         -------
+#         image_path : str
+#             path to an image
+        
+#         database : dic 
+#             database containing image encodings along with the name of the person on the image as key
+        
+#         ...
+        
+#         Output
+#         -------
+#             min_dist : float
+#                 the minimum distance between image_path encoding and the encodings from the database
+#             identity : str
+#                 the name prediction for the person on image_path
+#             model_path : str
+#                 path to the FaceNet config file path
+#             weight_path : str
+#                 path to the FaceNet weight file path
+#         """
+
+
+#         # import the FaceNet model
+#         self.import_FaceNet(model_path=model_path, weight_path=weight_path)
+#         # Compute the target "encoding" for the image
+#         self.encoding =  self.img_to_encoding(image_path)
+
+#         # Find the closest encoding 
+#         # Initialize "min_dist" to a large value, say 100
+#         min_dist = 100
+        
+#         # Loop over the database dictionary's names and encodings.
+#         for (name, db_enc) in database.items():
+#             # Compute L2 distance between the target "encodings" and the current db_enc from the database.
+#             # note we compute multiple distances for a subject and pick the distance with the minimal distance
+
+# #             dist = (np.vstack(db_enc["encodings"]) - self.encoding)**2
+# #             dist = np.sum(dist, axis=1)
+# #             dist = np.min(np.sqrt(dist))
+        
+#             dist = np.linalg.norm(tf.subtract(np.vstack(db_enc["encodings"]), self.encoding), axis=1, ord=2).min()
+           
+# #             dist = np.array([np.mean(np.array(dist))])
+
+#             # If this distance is less than the min_dist, then set min_dist to dist, and identity to name
+#             if dist < min_dist:
+#                 min_dist = dist
+#                 identity = name
+        
+#         # if any of the distances is higher than 0.75 we don t think the given face is represented in the database
+#         if min_dist > 0.75:
+#             print("Not in the database.")
+#         else:
+#             print ("it's " + str(identity) + ", the distance is " + str(min_dist))
+
+#         return min_dist, identity
+    
+#     def import_FaceNet(self, model_path='../dat/models/keras-facenet-h5/model.json', 
+#                        weight_path = '../dat/models/keras-facenet-h5/model.h5'):
+
+#         from tensorflow.keras.models import model_from_json
+#         json_file = open(model_path, 'r')
+#         loaded_model_json = json_file.read()
+#         json_file.close()
+#         self.FaceNet = model_from_json(loaded_model_json)
+#         self.FaceNet.load_weights(weight_path)
+    
+#     def img_to_encoding(self, image_path):
+#         import tensorflow as tf  
+#         import numpy as np
+#         img = tf.keras.preprocessing.image.load_img(image_path, target_size=(160, 160))
+#         img = np.around(np.array(img) / 255.0, decimals=12)
+#         x_train = np.expand_dims(img, axis=0)
+#         embedding = self.FaceNet.predict_on_batch(x_train)
+#         return embedding / np.linalg.norm(embedding, ord=2)
+    
+    
+##################################################################################################################################
+
 class FaceRecognition:
-    def who_is_it(self, image_path, database, model_path='../dat/models/keras-facenet-h5/model.json', weight_path = '../dat/models/keras-facenet-h5/model.h5'):
+    def who_is_it(self, image_path, database,
+                  model_path='../dat/models/keras-facenet-h5/model.json',
+                  weight_path = '../dat/models/keras-facenet-h5/model.h5',
+                 thr=0.75,
+                 plot=False):
         import numpy as np
         import tensorflow as tf
         """
@@ -868,40 +961,45 @@ class FaceRecognition:
             weight_path : str
                 path to the FaceNet weight file path
         """
-
+        import json
+        import matplotlib.patches as patches
+        from numpy.linalg import norm
 
         # import the FaceNet model
         self.import_FaceNet(model_path=model_path, weight_path=weight_path)
+        
+        face = self.detect_face(image_path, plot=plot)
+        
+        if face is None:
+            return None, "No face visible"
+
+        face = self.resize(face, 160,160)
+        
         # Compute the target "encoding" for the image
-        self.encoding =  self.img_to_encoding(image_path)
+        encoding =  self.img_to_encoding(face)
 
         # Find the closest encoding 
         # Initialize "min_dist" to a large value, say 100
         min_dist = 100
         
-        # Loop over the database dictionary's names and encodings.
-        for (name, db_enc) in database.items():
-            # Compute L2 distance between the target "encodings" and the current db_enc from the database.
-            # note we compute multiple distances for a subject and pick the distance with the minimal distance
-
-#             dist = (np.vstack(db_enc["encodings"]) - self.encoding)**2
-#             dist = np.sum(dist, axis=1)
-#             dist = np.min(np.sqrt(dist))
+        database = json.loads(open(database).read())
         
-            dist = np.linalg.norm(tf.subtract(np.vstack(db_enc["encodings"]), self.encoding), axis=1, ord=2).min()
-           
-#             dist = np.array([np.mean(np.array(dist))])
 
-            # If this distance is less than the min_dist, then set min_dist to dist, and identity to name
-            if dist < min_dist:
-                min_dist = dist
-                identity = name
+        # Compute L2 distance between the target "encodings" and the current db_enc from the database.
+        # note we compute multiple distances for a subject and pick the distance with the minimal distance
+
+        db, names = self.load_database()
+        db = np.vstack(list(db.values()))
+        db = norm(db-encoding, axis=1, ord=2)
+        
+        ind = np.argmin(db)
+        identity = names[ind]
+        min_dist = db[ind]
         
         # if any of the distances is higher than 0.75 we don t think the given face is represented in the database
-        if min_dist > 0.75:
-            print("Not in the database.")
-        else:
-            print ("it's " + str(identity) + ", the distance is " + str(min_dist))
+        if min_dist > thr:
+            identity = "stranger" 
+
 
         return min_dist, identity
     
@@ -915,12 +1013,131 @@ class FaceRecognition:
         self.FaceNet = model_from_json(loaded_model_json)
         self.FaceNet.load_weights(weight_path)
     
-    def img_to_encoding(self, image_path):
-        import tensorflow as tf  
+    def img_to_encoding(self, img): 
         import numpy as np
-        img = tf.keras.preprocessing.image.load_img(image_path, target_size=(160, 160))
+        from PIL import Image
         img = np.around(np.array(img) / 255.0, decimals=12)
+#         img = img.resize((160,160), Image.NEAREST)        
         x_train = np.expand_dims(img, axis=0)
         embedding = self.FaceNet.predict_on_batch(x_train)
         return embedding / np.linalg.norm(embedding, ord=2)
     
+    def detect_face(self, image_path, plot=False):
+        from mtcnn.mtcnn import MTCNN
+        import numpy as np
+        import matplotlib.pyplot as plt
+
+        
+        pic = plt.imread(image_path)
+        dim = pic.shape
+        # create/initiate the detector, using default weights
+        detector = MTCNN()
+        
+        # detct the face
+        faces = detector.detect_faces(pic)
+        
+        if len(faces) == 0:
+            return None
+        if len(faces) >= 1:
+            
+            print("[INFO] {} faces detected!!!".format(len(faces)))
+            
+            ind = np.argmax([faces[i]["confidence"] for i in range(len(faces))])
+            faces = faces[ind]
+            
+        
+         # get coordinates of detected face 
+        x1, y1, width, height = faces['box']
+        x2, y2 = x1 + width, y1 + height
+
+        # recenter the detected rectangle around the face
+        circles = faces['keypoints'].values() # rember keypoints contain dic of landmarks in format of tuple(x,y)
+        center = (sum(k[0] for k in circles)/len(circles), sum(k[1] for k in circles)/len(circles))
+
+
+        ### adjust the ratio of the rectangle towards the longer side of height and width
+        ### remember input for FaceNet is 160x160 as we don t want to deform the face by resizing it
+        ### we recenter the rectangle and keep same side size                
+        # determine the longer side of width and height
+        MAX = int(np.max([width, height]))
+        x1, x2, y1, y2 = (int(center[0]-MAX/2), int(center[0]+MAX/2), int(center[1]-MAX/2), int(center[1]+MAX/2))
+
+        # check for the cases that we go out of the image with the new rectangle
+
+        # in case we go out of the left side of the image
+        if x1 < 0: 
+            # add the part which was over the left side and add it to the right side of the rectangle
+            x2 += x1*-1
+            # set the left point to the border of the left side of the image
+            x1 = 0
+        # in case we go out of the right side of the image
+        if x2 > dim[1]:
+            # add the part which was over the right side and add it to the left side of the rectangle
+            x1 -= x2-dim[1]
+            # set the right point to the border of the right side of the image
+            x2 = dim[1]
+        # in case we go out of the top side of the image
+        if y1 < 0:    
+            # add the part which was over the top part and add it to the bottom part of the rectangle
+            y2 += y1*-1
+            # set the top point to the boarder of the top part of the image
+            y1 = 0
+        # in case we go out of the bottom part of the image
+        if y2 > dim[0]:
+            # add the part which was over the bottom part and add it to the top part of the rectangle
+            y1 -= y2-dim[0]
+            # set the bottom point to the boarder of the bottom part of the image
+            y2 = dim[0]
+            
+        if plot:
+            
+            import matplotlib.patches as patches
+            from PIL import Image
+
+            im = Image.open(image_path)
+
+            # Create figure and axes
+            fig, ax = plt.subplots()
+
+            # Display the image
+            ax.imshow(im)
+
+            # Create a Rectangle patch
+            rect = patches.Rectangle((x1, y1), width, height, linewidth=3, edgecolor='r', facecolor='none')
+
+            # Add the patch to the Axes
+            ax.add_patch(rect)
+
+            plt.show()
+
+            plt.imshow(pic[y1:y2, x1:x2])
+
+
+        # crop the face out of the image 
+        return pic[y1:y2, x1:x2]
+    #simple image scaling to (nR x nC) size
+    def resize(self,im, nR, nC):
+        nR0 = len(im)     # source number of rows 
+        nC0 = len(im[0])  # source number of columns 
+        return [[ im[int(nR0 * r / nR)][int(nC0 * c / nC)]  for c in range(nC)] for r in range(nR)]
+    
+    def rep(self,x):
+        return [x[0]] * x[1]
+
+    def load_database(self, database="/mnt/golem/frodo/Database/New_FaceDB.json"):
+        import numpy as np
+        from itertools import chain
+        import json
+        db = json.loads(open(database).read())
+        db = {k: np.vstack(v["encodings"]) for k,v in db.items()}
+        len_db = list(map(len, list(db.values())))
+        nest = list(map(self.rep, zip(list(db.keys()), len_db)))
+        names = list(chain(*nest))
+
+        return db, names
+        
+        
+
+        
+    
+
