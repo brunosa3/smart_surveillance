@@ -1,2 +1,8 @@
-dat/
-dat/*
+# exclude the following items/folders
+tmp2/
+reolink_live_stream.py
+__pychache__
+01_face_detection_overcome_cold_start.ipynb
+smart_surveillance/videos
+smart_surveillance/output
+
