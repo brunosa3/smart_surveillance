@@ -1,0 +1,3 @@
+[submodule "smart_surveillance"]
+	path = smart_surveillance
+	url = ./smart_surveillance
