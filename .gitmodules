@@ -1,0 +1,3 @@
+[submodule "smart_surveillance"]
+	path = smart_surveillance
+	url = https://github.com/GeekAlexis/FastMOT.git
