@@ -21,7 +21,7 @@ optional.add_argument('-c', '--config', metavar="FILE",
                           default='/home/brunosa3/secrets.cfg',
                           help='path to credetials')
 optional.add_argument('-o', '--output',
-                          default="./",
+                          default="./log/",
                           help='output log file')
 parser._action_groups.append(optional)
 args = parser.parse_args()
@@ -31,8 +31,6 @@ args = parser.parse_args()
 
 def read_config(props_path: str) -> dict:
     """Reads in a properties file into variables.
-    
-    this config file is kept out of commits with .gitignore. The structure of this file is such:
     """
     config = RawConfigParser()
     assert os.path.exists(props_path), f"Path does not exist: {props_path}"
@@ -48,7 +46,7 @@ def get_time(cam: Camera) -> datetime:
 
 # set up logging
 logging.basicConfig(format='%(asctime)s [%(levelname)8s] %(message)s', datefmt='%Y-%m-%d %H:%M:%S', 
-                    filename= args.output + 'Reolink_'+ args.source +'.log', level=logging.INFO)
+                    filename= args.output + 'Reolink_motion_alerts_'+ args.source +'.log', level=logging.INFO)
 
 # Read in your ip, username, & password
 config = read_config(args.config)
