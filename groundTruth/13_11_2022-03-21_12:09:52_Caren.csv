@@ -1,0 +1,6 @@
+,date,time,source,frame_nr,trackID,KNN_prediction,min_dist,SGD_prediction,max_prob,label,YOLO,faces,cor_person,cor_tracking,cor_reident,cor_face,cor_area
+0,2022-03-21,12:09:52,Found,person,11,,,,,Caren,person,person,,1,0.0,,1.0
+1,2022-03-21,12:09:52,Eingang,9754,11,No face visible,,No face visible,,Caren,smart_surveillance/FaceRecognition/FaceNet_input/Eingang/in_of_interest_area/trackID_11/2022March21_12_09_52_Eingang9754_crop_track_11.png,9754,1.0,,,1.0,
+2,2022-03-21,12:09:53,Eingang,9764,11,No face visible,,No face visible,,Caren,smart_surveillance/FaceRecognition/FaceNet_input/Eingang/in_of_interest_area/trackID_11/2022March21_12_09_53_Eingang9764_crop_track_11.png,9764,1.0,,,1.0,
+3,2022-03-21,12:09:54,Eingang,9774,11,No face visible,,No face visible,,Caren,smart_surveillance/FaceRecognition/FaceNet_input/Eingang/in_of_interest_area/trackID_11/2022March21_12_09_54_Eingang9774_crop_track_11.png,9774,1.0,,,1.0,
+4,2022-03-21,12:10:03,Lost,person,11,,,,,Caren,person,person,,,,,

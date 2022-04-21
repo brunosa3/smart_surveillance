@@ -1,0 +1,4 @@
+,date,time,source,frame_nr,trackID,KNN_prediction,min_dist,SGD_prediction,max_prob,label,YOLO,faces,cor_person,cor_tracking,cor_reident,cor_face,cor_area
+0,2022-03-28,17:59:35,Found,person,104,,,,,Kyla,person,person,,1,1,,1
+1,2022-03-28,17:59:35,Eingang,486613,104,No face visible,NA,No face visible,NA,Kyla,smart_surveillance/FaceRecognition/FaceNet_input/Eingang/in_of_interest_area/trackID_104/2022March28_17_59_35_Eingang486613_crop_track_104.png,486613,1.0,,,1.0,
+2,2022-03-28,17:59:40,Lost,person,104,,,,,Kyla,person,person,,,,,
