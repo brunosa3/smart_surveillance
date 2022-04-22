@@ -21,8 +21,8 @@ The notebooks mentioned below should demonstrate the following parts
 
 
 
-##### quick start
-configure the paths for the different files on your machine in the configuration file [conf.json](conf.json)
+#### quick start
+configure the paths for the different files on your machine in the configuration file [conf.json](conf.json) ***NOTE: the weights and architecture of FaceNet are stored in [keras-facenet-h5](keras-facenet-h5)***
 
 To detect, extract and cluster all the detected faces of your personal picture collection you need to run the script below in the terminal. This will output folders of faces that were clustered together and seem to be the identical person. In addition it will store all the extracted encodings, as well as paths to the cropped faces and original pictures in a json file.
 
@@ -35,4 +35,5 @@ Next you need to manually evaluate the correctnes of the clusters and label the 
 python main.py -c conf.json -r True
 ```
 
-2) evaluation of our models [evaluation_of_alerting_system.ipynb](evaluation_of_alerting_system.ipynb)
+2) evaluation of our models [03_model_evaluation.ipynb](03_model_evaluation.ipynb) ***NOTE: the extensive ground truth dataset is stored in [groundTruth](groundTruth)***
+
