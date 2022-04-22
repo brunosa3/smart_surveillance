@@ -17,12 +17,10 @@ However, it was too hard for us in that short time to make sure tha all componen
 
 ## Demonstrations
 The notebooks mentioned below should demonstrate the following parts
-1) overcome a cold start of our system [01_Overcome_cold_start_face_recognition.ipynb](01_Overcome_cold_start_face_recognition.ipynb)
-
-
-
+### 1) overcome a cold start of our system [01_Overcome_cold_start_face_recognition.ipynb](01_Overcome_cold_start_face_recognition.ipynb)
 #### quick start
-configure the paths for the different files on your machine in the configuration file [conf.json](conf.json) ***NOTE: the weights and architecture of FaceNet are stored in [keras-facenet-h5](keras-facenet-h5)***
+configure the paths for the different files on your machine in the configuration file [conf.json](conf.json)  
+*NOTE: the weights and architecture of FaceNet are stored in [keras-facenet-h5](keras-facenet-h5)*
 
 To detect, extract and cluster all the detected faces of your personal picture collection you need to run the script below in the terminal. This will output folders of faces that were clustered together and seem to be the identical person. In addition it will store all the extracted encodings, as well as paths to the cropped faces and original pictures in a json file.
 
@@ -34,6 +32,8 @@ Next you need to manually evaluate the correctnes of the clusters and label the 
 ```terminal
 python main.py -c conf.json -r True
 ```
+### 2) 
 
-2) evaluation of our models [03_model_evaluation.ipynb](03_model_evaluation.ipynb) ***NOTE: the extensive ground truth dataset is stored in [groundTruth](groundTruth)***
+### 3) evaluation of our models [03_model_evaluation.ipynb](03_model_evaluation.ipynb)   
+*NOTE: the extensive manually labeled ground truth dataset is stored in [groundTruth](groundTruth) and the precomputed evaluation is stored in [FaceRecognition_evaluation.json](FaceRecognition_evaluation.json)*
 
