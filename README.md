@@ -34,3 +34,5 @@ Next you need to manually evaluate the correctnes of the clusters and label the 
 ```terminal
 python main.py -c conf.json -r True
 ```
+
+2) evaluation of our models [evaluation_of_alerting_system.ipynb](evaluation_of_alerting_system.ipynb)
