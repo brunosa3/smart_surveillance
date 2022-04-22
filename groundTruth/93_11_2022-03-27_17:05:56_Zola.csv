@@ -1,0 +1,9 @@
+,date,time,source,frame_nr,trackID,KNN_prediction,min_dist,SGD_prediction,max_prob,label,YOLO,faces,cor_person,cor_tracking,cor_reident,cor_face,cor_area
+0,2022-03-27,17:05:56,Found,person,11,,,,,Zola,person,person,,1,,,1
+1,2022-03-27,17:05:56,Eingang,59761,11,No face visible,NA,No face visible,NA,Zola,smart_surveillance/FaceRecognition/FaceNet_input/Eingang/in_of_interest_area/trackID_11/2022March27_17_05_56_Eingang59761_crop_track_11.png,59761,1.0,,,1.0,
+2,2022-03-27,17:05:56,Eingang,59771,11,No face visible,NA,No face visible,NA,Zola,smart_surveillance/FaceRecognition/FaceNet_input/Eingang/in_of_interest_area/trackID_11/2022March27_17_05_56_Eingang59771_crop_track_11.png,59771,1.0,,,1.0,
+3,2022-03-27,17:05:57,Eingang,59781,11,No face visible,NA,No face visible,NA,Zola,smart_surveillance/FaceRecognition/FaceNet_input/Eingang/in_of_interest_area/trackID_11/2022March27_17_05_57_Eingang59781_crop_track_11.png,59781,1.0,,,1.0,
+4,2022-03-27,17:05:57,Eingang,59791,11,No face visible,NA,No face visible,NA,Zola,smart_surveillance/FaceRecognition/FaceNet_input/Eingang/in_of_interest_area/trackID_11/2022March27_17_05_57_Eingang59791_crop_track_11.png,59791,1.0,,,1.0,
+5,2022-03-27,17:05:58,Eingang,59801,11,No face visible,NA,No face visible,NA,Zola,smart_surveillance/FaceRecognition/FaceNet_input/Eingang/in_of_interest_area/trackID_11/2022March27_17_05_58_Eingang59801_crop_track_11.png,59801,1.0,,,1.0,
+6,2022-03-27,17:05:59,Eingang,59811,11,No face visible,NA,No face visible,NA,Zola,smart_surveillance/FaceRecognition/FaceNet_input/Eingang/in_of_interest_area/trackID_11/2022March27_17_05_59_Eingang59811_crop_track_11.png,59811,1.0,,,1.0,
+7,2022-03-27,17:06:04,Lost,person,11,,,,,Zola,person,person,,,,,

@@ -223,6 +223,8 @@ class GenerateFaces:
                     print(e)   
                     continue
                 
+
+            self.pixels = self.super_resolution(self.pixels)
                 
             # create/initiate the detector, using default weights
             detector = MTCNN()
@@ -555,9 +557,14 @@ class GenerateFaces:
 
             # get all the unique keys of the corpped faces cluster together
             r = re.compile(".*png")
-            pictures = {id: [re.split("[_.]",v)[1] for v in list(filter(r.match, os.listdir(cluster_path + id)))]  
+#             pictures = {id: [re.split("[_.]",v)[1] for v in list(filter(r.match, os.listdir(cluster_path + id)))]  
+#                         for id in ID 
+#                         if id not in ignore}
+            # uncomment when not using extraction pipline
+            pictures = {id: [re.split("[_]",v)[0] for v in list(filter(r.match, os.listdir(cluster_path + id)))]  
                         for id in ID 
                         if id not in ignore}
+
             # restructure the DB to the form of {real person name: list of FaceDB dict of the identified faces}
             p_o = []
             p_c = []
@@ -593,6 +600,19 @@ class GenerateFaces:
                 json.dump(New_DB, fp)
 
             return New_DB
+        
+    def super_resolution(self, img, model="lapsrn", zoom=8):
+        import cv2
+        import os
+        sr = cv2.dnn_superres.DnnSuperResImpl_create()
+        path = "/home/brunosa3/projects/smart_surveillance/scr/smart_surveillance/FaceRecognition/superresolution_models/"
+        # print(os.listdir(path))
+        path = [path + i for i in os.listdir(path) if (i.split("_")[0].lower() == model) & (int(i.split("_")[1][1]) == zoom)][0]
+
+        sr.readModel(path) 
+        sr.setModel(model, zoom) # set the model by passing the value and the upsampling ratio
+        result = sr.upsample(img) # upscale the input image
+        return result
 
                 
 
@@ -1135,6 +1155,8 @@ class FaceRecognition:
         names = list(chain(*nest))
 
         return db, names
+    
+
         
         
 

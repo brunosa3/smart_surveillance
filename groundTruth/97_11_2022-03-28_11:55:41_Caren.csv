@@ -1,0 +1,6 @@
+,date,time,source,frame_nr,trackID,KNN_prediction,min_dist,SGD_prediction,max_prob,label,YOLO,faces,cor_person,cor_tracking,cor_reident,cor_face,cor_area
+0,2022-03-28,11:55:41,Found,person,11,,,,,Caren,person,person,,1,0,,1
+1,2022-03-28,11:55:41,Eingang,49435,11,Caren_Bruno,12.634989476232649,Kyla_Bruno,0.22305440267468327,Caren,smart_surveillance/FaceRecognition/FaceNet_input/Eingang/in_of_interest_area/trackID_11/2022March28_11_55_41_Eingang49435_crop_track_11.png,smart_surveillance/FaceRecognition/FaceNet_output/Eingang/in_of_interest_area/trackID_11/2022March28_11_55_41_Eingang49435_crop_track_11.png,1.0,,,1.0,
+2,2022-03-28,11:55:42,Eingang,49455,11,Maureen_Leber,NA,unknown,NA,Caren,smart_surveillance/FaceRecognition/FaceNet_input/Eingang/in_of_interest_area/trackID_11/2022March28_11_55_42_Eingang49455_crop_track_11.png,smart_surveillance/FaceRecognition/FaceNet_output/Eingang/in_of_interest_area/trackID_11/2022March28_11_55_42_Eingang49455_crop_track_11.png,1.0,,,1.0,
+3,2022-03-28,11:55:43,Eingang,49475,11,No face visible,NA,No face visible,NA,Caren,smart_surveillance/FaceRecognition/FaceNet_input/Eingang/in_of_interest_area/trackID_11/2022March28_11_55_43_Eingang49475_crop_track_11.png,49475,1.0,,,1.0,
+4,2022-03-28,11:55:48,Lost,person,11,,,,,Caren,person,person,,,,,

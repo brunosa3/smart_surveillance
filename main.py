@@ -39,7 +39,6 @@ def parse_args():
 def main():
     # get all the parsed arguments
     conf = parse_args()
-    
     # check if we need to consider all sub-folders within specified directory    
     if conf["subfolders"] == "all":
         # walk through each subfolder till you reach a filename in list comprehension style
@@ -54,13 +53,11 @@ def main():
         
     # only use the pictures which are in the specified folder (not sub-folders)    
     elif conf["subfolders"] == None:
-        
         # extract all the paths to the images in the specified folder
-        pictures = [conf["input_dir"] + IMG  for IMG in os.listdir(conf["input_dir"])]          
+        pictures = [conf["input_dir"] + IMG  for IMG in os.listdir(conf["input_dir"])]
     
     # look in specified sub-folders
     else:   
-        
         # identify all the subfolders within the specified directory
         # this could be done more elegant with the os.path.isdir() and os.access(file_path, os.R_OK) functions
         folders = {conf["input_dir"] + w: os.listdir(conf["input_dir"] + w) for w in os.listdir(conf["input_dir"]) if (len(w.split(".")) == 1) and ("@" not in w)}

@@ -1,0 +1,9 @@
+,date,time,source,frame_nr,trackID,KNN_prediction,min_dist,SGD_prediction,max_prob,label,YOLO,faces,cor_person,cor_tracking,cor_reident,cor_face,cor_area
+0,2022-03-29,12:50:04,Found,person,123,,,,,Caren,person,person,,1,,,1
+1,2022-03-29,12:50:04,Eingang,1556788,123,Maureen_Leber,2.366436995591914,unknown,NA,Caren,smart_surveillance/FaceRecognition/FaceNet_input/Eingang/in_of_interest_area/trackID_123/2022March29_12_50_04_Eingang1556788_crop_track_123.png,smart_surveillance/FaceRecognition/FaceNet_output/Eingang/in_of_interest_area/trackID_123/2022March29_12_50_04_Eingang1556788_crop_track_123.png,1.0,,,1.0,
+2,2022-03-29,12:50:05,Eingang,1556808,123,No face visible,NA,No face visible,NA,Caren,smart_surveillance/FaceRecognition/FaceNet_input/Eingang/in_of_interest_area/trackID_123/2022March29_12_50_05_Eingang1556808_crop_track_123.png,1556808,1.0,,,1.0,
+3,2022-03-29,12:50:06,Eingang,1556828,123,No face visible,NA,No face visible,NA,Caren,smart_surveillance/FaceRecognition/FaceNet_input/Eingang/in_of_interest_area/trackID_123/2022March29_12_50_06_Eingang1556828_crop_track_123.png,1556828,1.0,,,1.0,
+4,2022-03-29,12:50:07,Eingang,1556848,123,No face visible,NA,No face visible,NA,Caren,smart_surveillance/FaceRecognition/FaceNet_input/Eingang/in_of_interest_area/trackID_123/2022March29_12_50_07_Eingang1556848_crop_track_123.png,1556848,1.0,,,1.0,
+5,2022-03-29,12:50:09,Eingang,1556868,123,No face visible,NA,No face visible,NA,Caren,smart_surveillance/FaceRecognition/FaceNet_input/Eingang/in_of_interest_area/trackID_123/2022March29_12_50_08_Eingang1556868_crop_track_123.png,1556868,1.0,,,1.0,
+6,2022-03-29,12:50:10,Eingang,1556888,123,No face visible,NA,No face visible,NA,Caren,smart_surveillance/FaceRecognition/FaceNet_input/Eingang/in_of_interest_area/trackID_123/2022March29_12_50_10_Eingang1556888_crop_track_123.png,1556888,1.0,,,1.0,
+7,2022-03-29,12:50:15,Lost,person,123,,,,,Caren,person,person,,,,,
