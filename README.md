@@ -11,5 +11,6 @@ One of the biggest challenges that we faced early in our project was that there 
 The streaming video feeds use a set of off-the-shelf IP cameras (Reolink RLC-423) and are run 24x7. There are actually a set of 6 cameras capturing video streams but our project will focus on a single stream from the camera labeled Eingang (translated to entrance). The stream is stored in a local storage array that has the capacity to store a few weeks worth of data. 
 
 ## Compilation Challenge
-As one can see on our building blocks of our current system below - it is a more complex and interdependent system which we accomplished on our local machines. It was too hard for us in that short time to make sure tha all components work in another enviroment. Therefore, we have decided to keep that out of scope for this repository. In scope of this repository is dought to demonstrate little pices of our system.
+As one can see on our building blocks of our current system below - it is a more complex and interdependent system which we accomplished on our local machines. It was too hard for us in that short time to make sure tha all components work in another enviroment. Therefore, we have decided to keep that out of scope for this repository. However, in scope of this repository is to demonstrate smaller parts of our system. This we are also demonstrating this in our [analysis tool](https://capstone.analyticsoverflow.com/analysis) in which you can evaluate the output of our system.   
+
 
