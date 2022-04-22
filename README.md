@@ -17,4 +17,4 @@ However, it was too hard for us in that short time to make sure tha all componen
 
 ## Demonstrations
 The following notebooks should demonstrate the following parts
-+ overcome a cold start of our system [01_face_detection_overcome_cold_start.ipynb](01_face_detection_overcome_cold_start.ipynb)
++ overcome a cold start of our system [01_Overcome_cold_start_face_recognition.ipynb](01_Overcome_cold_start_face_recognition.ipynb)
