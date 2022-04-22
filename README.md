@@ -15,5 +15,6 @@ As one can see on our building blocks of our current system below - it is a more
 ![alt text](pics/building_blocks.png)
 However, it was too hard for us in that short time to make sure tha all components work in other enviroments. Therefore, we have decided to keep that out of scope for this repository. However, in scope of this repository is to demonstrate smaller parts of our system. This together with our detailed report and our [analysis tool](https://capstone.analyticsoverflow.com/analysis) should help you to understand what we have archived. In near future we would like to expand this or another repository to also include the missing building blocks here such that you can also run our system in your enviroment with litle changes.
 
-
-
+## Demonstrations
+The following notebooks should demonstrate the following parts
++ overcome a cold start of our system [01_face_detection_overcome_cold_start.ipynb](01_face_detection_overcome_cold_start.ipynb)
