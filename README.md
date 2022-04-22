@@ -16,5 +16,21 @@ As one can see on our building blocks of our current system below - it is a more
 However, it was too hard for us in that short time to make sure tha all components work in other enviroments. Therefore, we have decided to keep that out of scope for this repository. However, in scope of this repository is to demonstrate smaller parts of our system. This together with our detailed report and our [analysis tool](https://capstone.analyticsoverflow.com/analysis) should help you to understand what we have archived. In near future we would like to expand this or another repository to also include the missing building blocks here such that you can also run our system in your enviroment with litle changes.
 
 ## Demonstrations
-The following notebooks should demonstrate the following parts
-+ overcome a cold start of our system [01_Overcome_cold_start_face_recognition.ipynb](01_Overcome_cold_start_face_recognition.ipynb)
+The notebooks mentioned below should demonstrate the following parts
+1) overcome a cold start of our system [01_Overcome_cold_start_face_recognition.ipynb](01_Overcome_cold_start_face_recognition.ipynb)
+
+
+
+##### quick start
+configure the paths for the different files on your machine in the configuration file [conf.json](conf.json)
+
+To detect, extract and cluster all the detected faces of your personal picture collection you need to run the script below in the terminal. This will output folders of faces that were clustered together and seem to be the identical person. In addition it will store all the extracted encodings, as well as paths to the cropped faces and original pictures in a json file.
+
+```terminal
+python main.py -c conf.json -e True -cl True
+```
+Next you need to manually evaluate the correctnes of the clusters and label the folders with the appropiate name of the subjects. Once this was done you can run the code below to restructure the created database. This database can be used now to reidentify these people.
+
+```terminal
+python main.py -c conf.json -r True
+```
