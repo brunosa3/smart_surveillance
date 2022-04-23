@@ -1,0 +1,67 @@
+2022-03-31 11:37:33 [    INFO] 1706x1280 stream @ 20 FPS
+2022-03-31 11:37:33 [    INFO] Loading detector model...
+2022-03-31 11:37:41 [    INFO] Loading feature extractor models...
+2022-03-31 11:37:41 [    INFO] Starting video capture...
+2022-03-31 11:40:22 [    INFO] Found:        person       1 at (1588,  835)
+2022-03-31 11:40:22 [    INFO] Snap:         FaceRecognition/FaceNet_input/Eingang/in_of_interest_area/trackID_1/2022March31_11_40_22_Eingang3298_crop_track_1.png,Eingang,3298,1,2046.799531,622.500000,503.696366,1276.000000
+2022-03-31 11:40:23 [    INFO] Snap:         FaceRecognition/FaceNet_input/Eingang/in_of_interest_area/trackID_1/2022March31_11_40_23_Eingang3318_crop_track_1.png,Eingang,3318,1,1776.694021,537.000000,355.138335,1400.500000
+2022-03-31 11:40:24 [    INFO] Snap:         FaceRecognition/FaceNet_input/Eingang/in_of_interest_area/trackID_1/2022March31_11_40_24_Eingang3338_crop_track_1.png,Eingang,3338,1,1544.103165,582.000000,386.650645,1354.000000
+2022-03-31 11:40:25 [    INFO] Snap:         FaceRecognition/FaceNet_input/Eingang/in_of_interest_area/trackID_1/2022March31_11_40_25_Eingang3358_crop_track_1.png,Eingang,3358,1,1487.080891,601.500000,391.152403,1333.000000
+2022-03-31 11:40:26 [    INFO] Snap:         FaceRecognition/FaceNet_input/Eingang/in_of_interest_area/trackID_1/2022March31_11_40_26_Eingang3378_crop_track_1.png,Eingang,3378,1,1289.003517,637.500000,500.695193,1271.500000
+2022-03-31 11:40:27 [    INFO] Snap:         FaceRecognition/FaceNet_input/Eingang/in_of_interest_area/trackID_1/2022March31_11_40_27_Eingang3398_crop_track_1.png,Eingang,3398,1,1012.895662,745.500000,461.679953,1184.500000
+2022-03-31 11:40:28 [    INFO] Snap:         FaceRecognition/FaceNet_input/Eingang/in_of_interest_area/trackID_1/2022March31_11_40_28_Eingang3418_crop_track_1.png,Eingang,3418,1,907.854631,654.000000,400.155920,1231.000000
+2022-03-31 11:40:28 [    INFO] Snap:         FaceRecognition/FaceNet_input/Eingang/in_of_interest_area/trackID_1/2022March31_11_40_28_Eingang3419_crop_track_1.png,Eingang,3419,1,906.354045,649.500000,404.657679,1234.000000
+2022-03-31 11:40:30 [    INFO] Snap:         FaceRecognition/FaceNet_input/Eingang/in_of_interest_area/trackID_1/2022March31_11_40_30_Eingang3439_crop_track_1.png,Eingang,3439,1,873.341149,538.500000,514.200469,1294.000000
+2022-03-31 11:40:31 [    INFO] Snap:         FaceRecognition/FaceNet_input/Eingang/in_of_interest_area/trackID_1/2022March31_11_40_30_Eingang3459_crop_track_1.png,Eingang,3459,1,1269.495897,412.500000,343.133646,1172.500000
+2022-03-31 11:40:32 [    INFO] Snap:         FaceRecognition/FaceNet_input/Eingang/in_of_interest_area/trackID_1/2022March31_11_40_32_Eingang3479_crop_track_1.png,Eingang,3479,1,1484.079719,337.500000,365.642438,1043.500000
+2022-03-31 11:40:33 [    INFO] Snap:         FaceRecognition/FaceNet_input/Eingang/in_of_interest_area/trackID_1/2022March31_11_40_33_Eingang3499_crop_track_1.png,Eingang,3499,1,1515.592028,292.500000,317.623681,1015.000000
+2022-03-31 11:40:34 [    INFO] Snap:         FaceRecognition/FaceNet_input/Eingang/in_of_interest_area/trackID_1/2022March31_11_40_34_Eingang3519_crop_track_1.png,Eingang,3519,1,1526.096131,286.500000,401.656506,979.000000
+2022-03-31 11:40:35 [    INFO] Snap:         FaceRecognition/FaceNet_input/Eingang/in_of_interest_area/trackID_1/2022March31_11_40_35_Eingang3539_crop_track_1.png,Eingang,3539,1,1437.561547,277.500000,373.145369,953.500000
+2022-03-31 11:40:35 [    INFO] Snap:         FaceRecognition/FaceNet_input/Eingang/in_of_interest_area/trackID_1/2022March31_11_40_35_Eingang3540_crop_track_1.png,Eingang,3540,1,1430.058617,277.500000,376.146542,952.000000
+2022-03-31 11:40:36 [    INFO] Snap:         FaceRecognition/FaceNet_input/Eingang/in_of_interest_area/trackID_1/2022March31_11_40_36_Eingang3560_crop_track_1.png,Eingang,3560,1,1380.539273,282.000000,436.169988,944.500000
+2022-03-31 11:40:37 [    INFO] Snap:         FaceRecognition/FaceNet_input/Eingang/in_of_interest_area/trackID_1/2022March31_11_40_37_Eingang3580_crop_track_1.png,Eingang,3580,1,1350.527550,273.000000,451.175850,961.000000
+2022-03-31 11:40:38 [    INFO] Snap:         FaceRecognition/FaceNet_input/Eingang/in_of_interest_area/trackID_1/2022March31_11_40_38_Eingang3600_crop_track_1.png,Eingang,3600,1,1385.041032,270.000000,448.174678,973.000000
+2022-03-31 11:40:39 [    INFO] Snap:         FaceRecognition/FaceNet_input/Eingang/in_of_interest_area/trackID_1/2022March31_11_40_39_Eingang3620_crop_track_1.png,Eingang,3620,1,1446.565064,318.000000,424.165299,998.500000
+2022-03-31 11:40:40 [    INFO] Snap:         FaceRecognition/FaceNet_input/Eingang/in_of_interest_area/trackID_1/2022March31_11_40_40_Eingang3640_crop_track_1.png,Eingang,3640,1,1389.542790,415.500000,394.153576,1075.000000
+2022-03-31 11:40:41 [    INFO] Snap:         FaceRecognition/FaceNet_input/Eingang/in_of_interest_area/trackID_1/2022March31_11_40_41_Eingang3660_crop_track_1.png,Eingang,3660,1,1197.467761,501.000000,434.669402,1187.500000
+2022-03-31 11:40:41 [    INFO] Snap:         FaceRecognition/FaceNet_input/Eingang/in_of_interest_area/trackID_1/2022March31_11_40_41_Eingang3661_crop_track_1.png,Eingang,3661,1,1207.971864,508.500000,431.668230,1207.000000
+2022-03-31 11:40:42 [    INFO] Snap:         FaceRecognition/FaceNet_input/Eingang/in_of_interest_area/trackID_1/2022March31_11_40_42_Eingang3681_crop_track_1.png,Eingang,3681,1,1069.917937,592.500000,487.189918,1291.000000
+2022-03-31 11:40:43 [    INFO] Snap:         FaceRecognition/FaceNet_input/Eingang/in_of_interest_area/trackID_1/2022March31_11_40_43_Eingang3701_crop_track_1.png,Eingang,3701,1,1165.955451,678.000000,539.710434,1267.000000
+2022-03-31 11:40:44 [    INFO] Snap:         FaceRecognition/FaceNet_input/Eingang/in_of_interest_area/trackID_1/2022March31_11_40_44_Eingang3721_crop_track_1.png,Eingang,3721,1,1074.419695,871.500000,587.729191,1082.500000
+2022-03-31 11:40:50 [    INFO] Lost:         person       1 at ( 762, 1252)
+2022-03-31 11:40:56 [    INFO] Found:        person       2 at (1115,  988)
+2022-03-31 11:40:56 [    INFO] Snap:         FaceRecognition/FaceNet_input/Eingang/in_of_interest_area/trackID_2/2022March31_11_40_56_Eingang3937_crop_track_2.png,Eingang,3937,2,1326.518171,939.000000,688.268464,989.500000
+2022-03-31 11:40:57 [    INFO] Snap:         FaceRecognition/FaceNet_input/Eingang/in_of_interest_area/trackID_2/2022March31_11_40_57_Eingang3957_crop_track_2.png,Eingang,3957,2,1554.607268,649.500000,617.740914,1247.500000
+2022-03-31 11:40:58 [    INFO] Snap:         FaceRecognition/FaceNet_input/Eingang/in_of_interest_area/trackID_2/2022March31_11_40_58_Eingang3977_crop_track_2.png,Eingang,3977,2,1688.159437,565.500000,479.686987,1357.000000
+2022-03-31 11:40:59 [    INFO] Snap:         FaceRecognition/FaceNet_input/Eingang/in_of_interest_area/trackID_2/2022March31_11_40_59_Eingang3997_crop_track_2.png,Eingang,3997,2,1947.760844,577.500000,470.683470,1370.500000
+2022-03-31 11:41:00 [    INFO] Snap:         FaceRecognition/FaceNet_input/Eingang/in_of_interest_area/trackID_2/2022March31_11_41_00_Eingang4017_crop_track_2.png,Eingang,4017,2,2135.334115,639.000000,449.675264,1301.500000
+2022-03-31 11:41:02 [    INFO] Out:          person       2 at (1708,  833)
+2022-03-31 11:42:29 [    INFO] Reidentified: person       1 at ( 762, 1252)
+2022-03-31 11:42:29 [    INFO] Snap:         FaceRecognition/FaceNet_input/Eingang/in_of_interest_area/trackID_1/2022March31_11_42_29_Eingang5718_crop_track_1.png,Eingang,5718,1,1611.629543,598.500000,529.206331,1333.000000
+2022-03-31 11:42:30 [    INFO] Snap:         FaceRecognition/FaceNet_input/Eingang/in_of_interest_area/trackID_1/2022March31_11_42_30_Eingang5738_crop_track_1.png,Eingang,5738,1,1647.643611,616.500000,578.725674,1298.500000
+2022-03-31 11:42:31 [    INFO] Snap:         FaceRecognition/FaceNet_input/Eingang/in_of_interest_area/trackID_1/2022March31_11_42_31_Eingang5758_crop_track_1.png,Eingang,5758,1,1689.660023,655.500000,520.202814,1238.500000
+2022-03-31 11:42:31 [    INFO] Snap:         FaceRecognition/FaceNet_input/Eingang/in_of_interest_area/trackID_1/2022March31_11_42_31_Eingang5759_crop_track_1.png,Eingang,5759,1,1692.661196,657.000000,515.701055,1235.500000
+2022-03-31 11:42:32 [    INFO] Snap:         FaceRecognition/FaceNet_input/Eingang/in_of_interest_area/trackID_1/2022March31_11_42_32_Eingang5779_crop_track_1.png,Eingang,5779,1,1722.672919,690.000000,433.168816,1186.000000
+2022-03-31 11:42:33 [    INFO] Snap:         FaceRecognition/FaceNet_input/Eingang/in_of_interest_area/trackID_1/2022March31_11_42_33_Eingang5799_crop_track_1.png,Eingang,5799,1,1661.148886,556.500000,352.137163,1367.500000
+2022-03-31 11:42:35 [    INFO] Snap:         FaceRecognition/FaceNet_input/Eingang/in_of_interest_area/trackID_1/2022March31_11_42_34_Eingang5819_crop_track_1.png,Eingang,5819,1,1403.048066,538.500000,560.718640,1388.500000
+2022-03-31 11:42:36 [    INFO] Snap:         FaceRecognition/FaceNet_input/Eingang/in_of_interest_area/trackID_1/2022March31_11_42_36_Eingang5839_crop_track_1.png,Eingang,5839,1,1228.980070,450.000000,593.731536,1249.000000
+2022-03-31 11:42:37 [    INFO] Snap:         FaceRecognition/FaceNet_input/Eingang/in_of_interest_area/trackID_1/2022March31_11_42_37_Eingang5859_crop_track_1.png,Eingang,5859,1,1398.546307,372.000000,500.695193,1058.500000
+2022-03-31 11:42:38 [    INFO] Snap:         FaceRecognition/FaceNet_input/Eingang/in_of_interest_area/trackID_1/2022March31_11_42_38_Eingang5879_crop_track_1.png,Eingang,5879,1,1610.128957,270.000000,440.671747,953.500000
+2022-03-31 11:42:38 [    INFO] Snap:         FaceRecognition/FaceNet_input/Eingang/in_of_interest_area/trackID_1/2022March31_11_42_38_Eingang5880_crop_track_1.png,Eingang,5880,1,1617.631887,268.500000,437.670574,949.000000
+2022-03-31 11:42:39 [    INFO] Snap:         FaceRecognition/FaceNet_input/Eingang/in_of_interest_area/trackID_1/2022March31_11_42_39_Eingang5900_crop_track_1.png,Eingang,5900,1,1788.698710,184.500000,367.143025,824.500000
+2022-03-31 11:42:40 [    INFO] Snap:         FaceRecognition/FaceNet_input/Eingang/in_of_interest_area/trackID_1/2022March31_11_42_40_Eingang5920_crop_track_1.png,Eingang,5920,1,1926.752638,157.500000,251.597890,734.500000
+2022-03-31 11:42:41 [    INFO] Snap:         FaceRecognition/FaceNet_input/Eingang/in_of_interest_area/trackID_1/2022March31_11_42_41_Eingang5940_crop_track_1.png,Eingang,5940,1,1952.262603,102.000000,242.594373,688.000000
+2022-03-31 11:42:42 [    INFO] Snap:         FaceRecognition/FaceNet_input/Eingang/in_of_interest_area/trackID_1/2022March31_11_42_42_Eingang5960_crop_track_1.png,Eingang,5960,1,1980.773740,72.000000,232.090270,643.000000
+2022-03-31 11:42:43 [    INFO] Snap:         FaceRecognition/FaceNet_input/Eingang/in_of_interest_area/trackID_1/2022March31_11_42_43_Eingang5980_crop_track_1.png,Eingang,5980,1,2132.332943,55.500000,232.090270,634.000000
+2022-03-31 11:42:48 [    INFO] Snap:         FaceRecognition/FaceNet_input/Eingang/in_of_interest_area/trackID_1/2022March31_11_42_48_Eingang6075_crop_track_1.png,Eingang,6075,1,2051.301290,75.000000,259.100821,613.000000
+2022-03-31 11:42:48 [    INFO] Snap:         FaceRecognition/FaceNet_input/Eingang/in_of_interest_area/trackID_1/2022March31_11_42_48_Eingang6076_crop_track_1.png,Eingang,6076,1,2019.788980,84.000000,263.602579,616.000000
+2022-03-31 11:42:49 [    INFO] Snap:         FaceRecognition/FaceNet_input/Eingang/in_of_interest_area/trackID_1/2022March31_11_42_49_Eingang6096_crop_track_1.png,Eingang,6096,1,1805.205158,123.000000,260.601407,676.000000
+2022-03-31 11:42:51 [    INFO] Snap:         FaceRecognition/FaceNet_input/Eingang/in_of_interest_area/trackID_1/2022March31_11_42_51_Eingang6116_crop_track_1.png,Eingang,6116,1,1728.675264,181.500000,290.613130,767.500000
+2022-03-31 11:42:51 [    INFO] Snap:         FaceRecognition/FaceNet_input/Eingang/in_of_interest_area/trackID_1/2022March31_11_42_51_Eingang6136_crop_track_1.png,Eingang,6136,1,1595.123095,189.000000,326.627198,916.000000
+2022-03-31 11:42:53 [    INFO] Snap:         FaceRecognition/FaceNet_input/Eingang/in_of_interest_area/trackID_1/2022March31_11_42_53_Eingang6156_crop_track_1.png,Eingang,6156,1,1461.570926,327.000000,383.649472,1027.000000
+2022-03-31 11:42:54 [    INFO] Snap:         FaceRecognition/FaceNet_input/Eingang/in_of_interest_area/trackID_1/2022March31_11_42_53_Eingang6176_crop_track_1.png,Eingang,6176,1,1370.035170,469.500000,442.172333,1154.500000
+2022-03-31 11:42:55 [    INFO] Snap:         FaceRecognition/FaceNet_input/Eingang/in_of_interest_area/trackID_1/2022March31_11_42_55_Eingang6196_crop_track_1.png,Eingang,6196,1,1469.073857,603.000000,484.188746,1292.500000
+2022-03-31 11:42:55 [    INFO] Snap:         FaceRecognition/FaceNet_input/Eingang/in_of_interest_area/trackID_1/2022March31_11_42_55_Eingang6197_crop_track_1.png,Eingang,6197,1,1482.579132,606.000000,485.689332,1298.500000
+2022-03-31 11:42:56 [    INFO] Snap:         FaceRecognition/FaceNet_input/Eingang/in_of_interest_area/trackID_1/2022March31_11_42_56_Eingang6217_crop_track_1.png,Eingang,6217,1,1782.696366,568.500000,737.787808,1382.500000
+2022-03-31 11:42:57 [    INFO] Snap:         FaceRecognition/FaceNet_input/Eingang/in_of_interest_area/trackID_1/2022March31_11_42_57_Eingang6237_crop_track_1.png,Eingang,6237,1,1953.763189,625.500000,527.705744,1325.500000
+2022-03-31 11:42:59 [    INFO] Out:          person       1 at (1706,  771)
