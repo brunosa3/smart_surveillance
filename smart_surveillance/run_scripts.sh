@@ -4,9 +4,9 @@
 source1=${2:-empty}
 source2=${3:-empty}
 source3=${4:-empty}
-config=${5:-/home/brunosa3/secrets.cfg}
-output=${6:-/home/brunosa3/projects/smart_surveillance/scr/Reolink/log/}
-clf=${5:-/home/brunosa3/projects/smart_surveillance/scr/smart_surveillance/FaceRecognition/KNN_weighted.json}
+config=${5:-secrets.cfg}
+output=${6:-../Reolink/log/}
+clf=${5:-FaceRecognition/KNN_weighted.json}
 
 if [ $source1 = Eingang ]
 then
@@ -16,7 +16,7 @@ then
   grep -A3 $source1 $config  | head -n4 | grep '^username' > tmp33 && source tmp33 && rm tmp33
   grep -A3 $source1 $config  | head -n4 | grep '^password' > tmp33 && source tmp33 && rm tmp33
 
-#   python /home/brunosa3/projects/smart_surveillance/scr/Reolink/motion_alert.py -s $source1 -c $config -o $output &
+  python ../Reolink/motion_alert.py -s $source1 -c $config -o $output &
 
   container=$(docker ps)
   name=$(docker ps --format "{{.Names}}")
@@ -29,12 +29,13 @@ then
   
   docker exec $name python3 app.py --input-uri rtsp://$username:$password@$ip:554/h264Preview_01_main --mot --txt WORKS.log --output-uri output/"$source1".mp4 &
   
-#     cp -R "$output"Reolink_motion_alerts_"$source1".log /home/brunosa3/projects/smart_surveillance/scr/smart_surveillance/log/Reolink_motion_alerts_"$source1".log
+    cp -R "$output"Reolink_motion_alerts_"$source1".log log/Reolink_motion_alerts_"$source1".log
   
 #   ln -sf "{$output}Reolink_motion_alerts_{$source1}.log" "/home/brunosa3/projects/smart_surveillance/scr/smart_surveillance/log/Reolink_motion_alerts_{$source1}.log"
 
   sleep 5 
-#   python monitorLog.py -s $source1 -clf $clf &
+    python monitorLog.py -s $source1 -clf $clf &
+
 fi
 
 if [ $source2 = Terrasse ]
@@ -45,7 +46,7 @@ then
   grep -A3 $source2 $config  | head -n4 | grep '^username' > tmp33 && source tmp33 && rm tmp33
   grep -A3 $source2 $config  | head -n4 | grep '^password' > tmp33 && source tmp33 && rm tmp33
 
-  python /home/brunosa3/projects/smart_surveillance/scr/Reolink/motion_alert.py -s $source2 -c $config -o $output &
+  python ../Reolink/motion_alert.py -s $source2 -c $config -o $output &
 
   container=$(docker ps)
   name=$(docker ps --format "{{.Names}}")
@@ -56,7 +57,7 @@ then
   docker exec $name pip install scikit-image
   docker exec $name python3 app.py --input-uri rtsp://$username:$password@$ip:554/h264Preview_01_main --mot --txt WORKS.log --output-uri output/"$source2".mp4 &
 
-  cp -R "$output"Reolink_motion_alerts_"$source2".log /home/brunosa3/projects/smart_surveillance/scr/smart_surveillance/log/Reolink_motion_alerts_"$source2".log
+  cp -R "$output"Reolink_motion_alerts_"$source2".log log/Reolink_motion_alerts_"$source2".log
 
 #   ln -sf "{$output}Reolink_motion_alerts_{$source2}.log" "/home/brunosa3/projects/smart_surveillance/scr/smart_surveillance/log/Reolink_motion_alerts_{$source2}.log"
 
@@ -72,7 +73,7 @@ then
   grep -A3 $source3 $config  | head -n4 | grep '^username' > tmp33 && source tmp33 && rm tmp33
   grep -A3 $source3 $config  | head -n4 | grep '^password' > tmp33 && source tmp33 && rm tmp33
 
-  python /home/brunosa3/projects/smart_surveillance/scr/Reolink/motion_alert.py -s $source3 -c $config -o $output &
+  python ../Reolink/motion_alert.py -s $source3 -c $config -o $output &
 
   container=$(docker ps)
   name=$(docker ps --format "{{.Names}}")
@@ -83,7 +84,7 @@ then
   docker exec $name pip install scikit-image
   docker exec $name python3 app.py --input-uri rtsp://$username:$password@$ip:554/h264Preview_01_main --mot --txt WORKS.log --output-uri output/"$source3".mp4 &
   
-  cp -R "$output"Reolink_motion_alerts_"$source3".log /home/brunosa3/projects/smart_surveillance/scr/smart_surveillance/log/Reolink_motion_alerts_"$source3".log
+  cp -R "$output"Reolink_motion_alerts_"$source3".log log/Reolink_motion_alerts_"$source3".log
 #   ln -sf "{$output}Reolink_motion_alerts_{$source3}.log" "/home/brunosa3/projects/smart_surveillance/scr/smart_surveillance/log/Reolink_motion_alerts_{$source3}.log"
 
   sleep 5 

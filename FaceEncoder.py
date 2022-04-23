@@ -223,9 +223,12 @@ class GenerateFaces:
                     print(e)   
                     continue
                 
-
-            self.pixels = self.super_resolution(self.pixels)
-                
+#             try:
+#                 self.pixels = self.super_resolution(self.pixels)
+#             except Exception as e:
+#                 print("[WARNING] the picture was not upsampled using the super resolution method")
+#                 print(e)
+            
             # create/initiate the detector, using default weights
             detector = MTCNN()
             # detect faces in the image
@@ -605,10 +608,9 @@ class GenerateFaces:
         import cv2
         import os
         sr = cv2.dnn_superres.DnnSuperResImpl_create()
-        path = "/home/brunosa3/projects/smart_surveillance/scr/smart_surveillance/FaceRecognition/superresolution_models/"
+        path = "smart_surveillance/FaceRecognition/superresolution_models/"
         # print(os.listdir(path))
         path = [path + i for i in os.listdir(path) if (i.split("_")[0].lower() == model) & (int(i.split("_")[1][1]) == zoom)][0]
-
         sr.readModel(path) 
         sr.setModel(model, zoom) # set the model by passing the value and the upsampling ratio
         result = sr.upsample(img) # upscale the input image
@@ -649,7 +651,7 @@ class FaceCluster:
         
     """
      
-    def __init__(self, file_path="/mnt/golem/frodo/Database/FaceDB.json", IDs = None):
+    def __init__(self, file_path="Database/FaceDB.json", IDs = None):
         
         """
         Parameters
@@ -762,9 +764,9 @@ class FaceImageGenerator:
         
     """
     
-    def GenerateImages(self, labels, cluster_dir="/mnt/golem/frodo/", OutputFolderName = "ClusteredFaces", 
+    def GenerateImages(self, labels, cluster_dir="./", OutputFolderName = "ClusteredFaces", 
                                             MontageOutputFolder = "Montage",
-                       file_path= "/mnt/golem/frodo/Database/FaceDB.json",
+                       file_path= "Database/FaceDB.json",
                        IDs = None
                       ):
         import shutil
