@@ -15,6 +15,115 @@ As one can see on our building blocks of our current system below - it is a more
 ![alt text](pics/building_blocks.png)
 However, it was too hard for us in that short time to make sure tha all components work in other enviroments. Therefore, we have decided to keep that out of scope for this repository. However, in scope of this repository is to demonstrate smaller parts of our system. This together with our detailed report and our [analysis tool](https://capstone.analyticsoverflow.com/analysis) should help you to understand what we have archived. In near future we would like to expand this or another repository to also include the missing building blocks here such that you can also run our system in your enviroment with litle changes.
 
+## Getting started
+After you have cloned our repository you should recreate our conda enviroment such that you can reproduce our work
+```python
+conda env create -f smart_surveillance.yml
+```
+Next we need to compile the multi object tracker we have customized from [FastMOT](https://github.com/GeekAlexis/FastMOT)
+### Install for x86 Ubuntu
+Make sure to have [nvidia-docker](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/install-guide.html#docker) installed. The image requires NVIDIA Driver version >= 450 for Ubuntu 18.04 and >= 465.19.01 for Ubuntu 20.04. We have built and test it stabely with Driver version 510.47.03 and CUDA Version 11.6 on Ubuntu 20.04:
+```terminal
+# change directory
+cd smart_surveillance/
+# build docker
+docker build --build-arg TRT_IMAGE_VERSION=21.05 -t  fastmot:latest .
+# for displaying within docker
+xhost local:root
+```
+Now we can check if the driver was installed correctly 
+```terminal
+# check driver 
+sudo docker run --gpus all nvidia/cuda:11.0-base nvidia-smi
+```
+
+Now we can compile the docker by going in the *plugin* folder and compile it using make
+```
+cd fastmod/plugins
+make
+```
+then you need to go in the *scripts/* folder and run *download_models.sh* to fetch all the model files
+```terminal
+cd scripts/
+./download_models.sh
+```
+
+Now we should be able to launch the docker in an interactive mode - Lets test it via
+```docker
+# run/open docker
+docker run --gpus all --rm -it -v $(pwd):/usr/src/app/FastMOT -v /tmp/.X11-unix:/tmp/.X11-unix -e DISPLAY=unix$DISPLAY -e TZ=$(cat /etc/timezone) fastmot:latest
+```
+
+#### Optional
+check if you have cv2 available within the launched interactive docker if not you need to install cv2 via wheel within the docker to get all dependencies otherwise it will not work becuase GSTREAMER support for videocapture is not given otherwise
+``` docker
+pip install --no-binary opencv-python opencv-python
+```
+try if you can run the tracker on a test video just copy paste any video of your choice (with some people walking around) into the docker folder
+```docker
+python3 app.py --input-uri fastmod/REC_84194.mov --mot -o test.mp4
+```
+in case you had to manually install a dependency within the docker e.g. cv2 rember the id of the container indicated in the prompt *root@containerID* and leave the interactive docker via the command *exit*  
+
+In order to display a list of launched containers including yours you need to execute
+```terminal
+sudo docker ps -a
+```
+Finally, create a new image by committing the changes using the following syntax
+``` terminal
+# sudo docker commit [CONTAINER_ID] [new_image_name]
+sudo docker commit fa9f6b05cde3 smart_surveillance
+# now you should see the saved container in docker images
+docker images
+```
+Now we can launch the saved container
+```
+docker run --gpus all --rm -it -v $(pwd):/usr/src/app/FastMOT -v /tmp/.X11-unix:/tmp/.X11-unix -e DISPLAY=unix$DISPLAY -e TZ=$(cat /etc/timezone) smart_surveillance:latest
+# or
+docker run --gpus all --rm -it -v $(pwd):/usr/src/app/FastMOT -v /tmp/.X11-unix:/tmp/.X11-unix -e DISPLAY=unix$DISPLAY -e TZ=$(cat /etc/timezone) containerID_seen_in_docker_image
+```
+
+### using the system with your surveillance camera
+Any Reolink camera that has a web UI should be compartible with our system eg.: 
++ RLC-411WS
++ RLC-423 (validated on our own cameras)
++ RLC-420-5MP
++ RLC-410-5MP
++ RLC-520
++ C1-Pro
++ D400
+
+you just need to create a *secrets.cfg* file in the *smart_surveillance* directory that contains the credentials for each Reolink camera you want to access
+```
+# sudo nano smart_surveillance/secrets.cfg
+[camera1]
+ip=xxx.xxx.xxx.xxx
+username=mustermann
+password=12345
+[camera2]
+ip=xxx.xxx.xxx.xxx
+username=mustermann
+password=12345
+[camera3]
+ip=xxx.xxx.xxx.xxx
+username=mustermann
+password=12345
+[camera4]
+ip=xxx.xxx.xxx.xxx
+username=mustermann
+password=12345
+[camera5]
+ip=xxx.xxx.xxx.xxx
+username=mustermann
+password=12345
+```
+
+Now you should be able to access your Reolink camera with its customized alert areas and monitor the incoming alerts from your Reolink camera 
+```terminal
+# $source need to be replaced by the camera name setted in secrets.cfg e.g. camera1 
+python Reolink/motion_alert.py -s $source -c smart_surveillance/secrets.cfg -o Reolink/log/ &
+```
+
 ## Demonstrations
 The notebooks mentioned below should demonstrate the following parts
 ### 1) overcome a cold start of our system [01_Overcome_cold_start_face_recognition.ipynb](01_Overcome_cold_start_face_recognition.ipynb)
