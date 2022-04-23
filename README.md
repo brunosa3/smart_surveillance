@@ -16,12 +16,57 @@ As one can see on our building blocks of our current system below - it is a more
 However, it was too hard for us in that short time to make sure tha all components work in other enviroments. Therefore, we have decided to keep that out of scope for this repository. However, in scope of this repository is to demonstrate smaller parts of our system. This together with our detailed report and our [analysis tool](https://capstone.analyticsoverflow.com/analysis) should help you to understand what we have archived. In near future we would like to expand this or another repository to also include the missing building blocks here such that you can also run our system in your enviroment with litle changes.
 
 ## Getting started
-After you have cloned our repository you should recreate our conda enviroment such that you can reproduce our work
+
+### This part is needed for the modules a), c) & d)   
+you just need to recreate our conda enviroment 
 ```python
 conda env create -f smart_surveillance.yml
 ```
-Next we need to compile the multi object tracker we have customized from [FastMOT](https://github.com/GeekAlexis/FastMOT)
-### Install for x86 Ubuntu
+
+### This part is needed for module a) in order to use the system with your own camera streams
+Any Reolink camera that has a web UI should be compartible with our system eg.: 
++ RLC-423 (validated on our own cameras)
++ RLC-411WS
++ RLC-420-5MP
++ RLC-410-5MP
++ RLC-520
++ C1-Pro
++ D400
+
+you just need to create a *secrets.cfg* file in the *smart_surveillance* folder that contains the credentials for each Reolink camera you want to access
+```
+# sudo nano smart_surveillance/secrets.cfg
+[camera1]
+ip=xxx.xxx.xxx.xxx
+username=mustermann
+password=12345
+[camera2]
+ip=xxx.xxx.xxx.xxx
+username=mustermann
+password=12345
+[camera3]
+ip=xxx.xxx.xxx.xxx
+username=mustermann
+password=12345
+[camera4]
+ip=xxx.xxx.xxx.xxx
+username=mustermann
+password=12345
+[camera5]
+ip=xxx.xxx.xxx.xxx
+username=mustermann
+password=12345
+```
+
+Now you should be able to access your Reolink camera. The script below will provide you the concrete coordinates of the interest areas you have setted via the official Reolink app and will log any incoming alert that was triggered by the camera. This we have used in our project to compare our system against the alerts coming directly from the camera. Remember we want to reduce the annoying false positive alerts of the alerting system built in the Reolink camera. Therefore, we need the alerts coming from the camera directly as reference.
+```terminal
+# $source need to be replaced by the camera name setted in the secrets.cfg file e.g. camera1 
+python Reolink/motion_alert.py -s $source -c smart_surveillance/secrets.cfg -o Reolink/log/ &
+```
+
+### This part is needed for module b)
+Here we need to compile the multi object tracker we have customized from [FastMOT](https://github.com/GeekAlexis/FastMOT)
+#### Install for x86 Ubuntu
 Make sure to have [nvidia-docker](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/install-guide.html#docker) installed. The image requires NVIDIA Driver version >= 450 for Ubuntu 18.04 and >= 465.19.01 for Ubuntu 20.04. We have built and test it stabely with Driver version 510.47.03 and CUDA Version 11.6 on Ubuntu 20.04:
 ```terminal
 # change directory
@@ -83,46 +128,6 @@ docker run --gpus all --rm -it -v $(pwd):/usr/src/app/FastMOT -v /tmp/.X11-unix:
 docker run --gpus all --rm -it -v $(pwd):/usr/src/app/FastMOT -v /tmp/.X11-unix:/tmp/.X11-unix -e DISPLAY=unix$DISPLAY -e TZ=$(cat /etc/timezone) containerID_seen_in_docker_image
 ```
 
-### using the system with your surveillance camera
-Any Reolink camera that has a web UI should be compartible with our system eg.: 
-+ RLC-411WS
-+ RLC-423 (validated on our own cameras)
-+ RLC-420-5MP
-+ RLC-410-5MP
-+ RLC-520
-+ C1-Pro
-+ D400
-
-you just need to create a *secrets.cfg* file in the *smart_surveillance* directory that contains the credentials for each Reolink camera you want to access
-```
-# sudo nano smart_surveillance/secrets.cfg
-[camera1]
-ip=xxx.xxx.xxx.xxx
-username=mustermann
-password=12345
-[camera2]
-ip=xxx.xxx.xxx.xxx
-username=mustermann
-password=12345
-[camera3]
-ip=xxx.xxx.xxx.xxx
-username=mustermann
-password=12345
-[camera4]
-ip=xxx.xxx.xxx.xxx
-username=mustermann
-password=12345
-[camera5]
-ip=xxx.xxx.xxx.xxx
-username=mustermann
-password=12345
-```
-
-Now you should be able to access your Reolink camera with its customized alert areas and monitor the incoming alerts from your Reolink camera 
-```terminal
-# $source need to be replaced by the camera name setted in secrets.cfg e.g. camera1 
-python Reolink/motion_alert.py -s $source -c smart_surveillance/secrets.cfg -o Reolink/log/ &
-```
 
 ## Demonstrations
 The notebooks mentioned below should demonstrate the following parts
