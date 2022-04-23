@@ -13,12 +13,12 @@ parser = argparse.ArgumentParser(formatter_class=argparse.RawTextHelpFormatter)
 optional = parser._action_groups.pop()
 required = parser.add_argument_group('required arguments')
 required.add_argument('-s', '--source', required=True, help=
-                          'source of Reolink camera\n'
+                          'source of Reolink camera e.g:\n'
                           '1) Eingang\n'
                           '2) Terrasse\n'
                           '3) Carport\n')
 optional.add_argument('-c', '--config', metavar="FILE",
-                          default='/home/brunosa3/secrets.cfg',
+                          default='smart_surveillance/secrets.cfg',
                           help='path to credetials')
 optional.add_argument('-o', '--output',
                           default="./log/",
@@ -55,15 +55,19 @@ ip = config.get(args.source, 'ip')
 un = config.get(args.source, 'username')
 pw = config.get(args.source, 'password')
 
-cam = Camera(ip, un, pw)
 
+cam = Camera(ip, un, pw)
 # must first login since I defer have deferred the login process
 cam.login()
 
 start = get_time(cam) 
+# this will provide a 1 if there is an incoming alert from the camera or 0 otherwise
 alarm = cam._execute_command('GetMdState', [{ "cmd":"GetMdState",  "param":{ "channel":0}}] )[0]
+# not really needed but I wanted to also monitor the performance to access overclocking
 performance = cam.get_performance()[0]
+# this will provide us the coordinates of the interest areas setted by the homeowner via the official Reolink app
 alarm_area = cam._execute_command('GetMdState', [{"cmd": "GetMdAlarm", "action": 1, "param": {"channel": 0}}])[0]
+# this will provide us the enviromental settings of the camera such as current set resolution, bitRate for the main or side stream
 enc = cam._execute_command('GetEnc', [{"cmd": "GetEnc", "action":1,"param":{"channel":0}}])[0]
 
 event = 0
