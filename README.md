@@ -13,14 +13,17 @@ The streaming video feeds use a set of off-the-shelf IP cameras (Reolink RLC-423
 ## Compilation Challenge
 As one can see on our building blocks of our current system below - it is a more complex and interdependent system which we accomplished on our local machines. 
 ![alt text](pics/building_blocks.png)
-However, it was too hard for us in that short time to make sure tha all components work in other enviroments. Therefore, we have decided to keep that out of scope for this repository. However, in scope of this repository is to demonstrate smaller parts of our system. This together with our detailed report and our [analysis tool](https://capstone.analyticsoverflow.com/analysis) should help you to understand what we have archived. In near future we would like to expand this or another repository to also include the missing building blocks here such that you can also run our system in your enviroment with litle changes.
+However, it is difficult for us to make sure that all components of this system is reproducible without any error on another system in that short time. Therefore, we appologize for any inconvinience you may experience during the compilation of our system. We tried our best to document the different steps to compile the system. However, we still hope we can provide you a better understanding about what we have archived with this repository together with our detailed [report](https://capstone.analyticsoverflow.com/report)  and our [analysis tool](https://capstone.analyticsoverflow.com/analysis). In future we will defnetly continue working on this repository and are happy about any feedback. 
 
 ## Getting started
 
 ### This part is needed for the modules a), c) & d)   
 you just need to recreate our conda enviroment 
 ```python
+# recreate our conda enviroment 
 conda env create -f smart_surveillance.yml
+# activate our conda enviroment
+conda activate smart_surveillance
 ```
 
 ### This part is needed for module a) in order to use the system with your own camera streams
@@ -58,11 +61,12 @@ username=mustermann
 password=12345
 ```
 
-Now you should be able to access your Reolink camera. The script below will provide you the concrete coordinates of the interest areas you have setted via the official Reolink app and will log any incoming alert that was triggered by the camera. This we have used in our project to compare our system against the alerts coming directly from the camera. Remember we want to reduce the annoying false positive alerts of the alerting system built in the Reolink camera. Therefore, we need the alerts coming from the camera directly as reference.
+Now you should be able to access your Reolink camera. The script below will provide you the concrete coordinates of the interest areas you have setted via the official Reolink app and will log any incoming alert that was triggered by the camera. This we have used in our project to compare our system against the alerts coming directly from the camera ([02_evaluation_of_alerting_system.ipynb](02_evaluation_of_alerting_system.ipynb)). Remember we want to reduce the annoying false positive alerts of the alerting system built in the Reolink camera. Therefore, we need the alerts coming from the camera directly as reference.
 ```terminal
 # $source need to be replaced by the camera name setted in the secrets.cfg file e.g. camera1 
 python Reolink/motion_alert.py -s $source -c smart_surveillance/secrets.cfg -o Reolink/log/ &
 ```
+In the [*Reolink/log/*](Reolink/log/) folder you can review the output of these monitored events coming from the camera.
 
 ### This part is needed for module b)
 Here we need to compile the multi object tracker we have customized from [FastMOT](https://github.com/GeekAlexis/FastMOT)
@@ -128,13 +132,55 @@ docker run --gpus all --rm -it -v $(pwd):/usr/src/app/FastMOT -v /tmp/.X11-unix:
 docker run --gpus all --rm -it -v $(pwd):/usr/src/app/FastMOT -v /tmp/.X11-unix:/tmp/.X11-unix -e DISPLAY=unix$DISPLAY -e TZ=$(cat /etc/timezone) containerID_seen_in_docker_image
 ```
 
+### Overcome a cold start of our system
+Once you have managed to compile all the dependencies above - we can now start to personalize the system by letting the system know who your friends and family are.
+#### quick start
+configure the paths for the different files on your machine in the configuration file [conf.json](conf.json)  
+*NOTE: the weights and architecture of FaceNet are stored in [*smart_surveillance/FaceRecognition/ model.json, model.h5*](smart_surveillance/FaceRecognition/)*
+
+To detect, extract and cluster all the detected faces of your personal picture collection you need to run the script below in the terminal. This will output folders of faces that were clustered together and seem to be the identical person. In addition it will store all the extracted encodings, as well as paths to the cropped faces and original pictures in a json file.
+
+```terminal
+python main.py -c conf.json -e True -cl True
+```
+Next you need to manually evaluate the correctnes of the clusters and label the folders with the appropiate name of the subjects. Once this was done you can run the code below to restructure the created database. This database can be used now to reidentify these people.
+
+```terminal
+python main.py -c conf.json -r True
+```
+
+For a better intuition how it works we have created a brief demo [01_Overcome_cold_start_face_recognition.ipynb](01_Overcome_cold_start_face_recognition.ipynb) that walk you through our scripts. All of that is intended to be executed just once before the system goes in production. After the system is in production our goal is to update the database with images coming direcly from the camera after the homeowner has provided feedback about the specific person (who is it?, do you want to get notified if this person got detected?). This should be a straight forward feature expansion of our system which we are planing to implement in the near future.
+
+
+## Ready to launching the system
+We have created a shell script (*[smart_surveillance/run_scripts.sh](smart_surveillance/run_scripts.sh)*) for our convinience that is launching the different pices of the system as the following:  
+
+```terminal
+# direct into the script directory
+cd smart_surveillance
+# run the shell script with appropiate arguments
+./run_scripts.sh -source1 Eingang
+```
+The script takes the following arguments:
++ -source1-3: used to activate the system on the stated cameras set in secrets.cfg; multiple cameras can be monitored (we have tested it for up to 3 cameras at the same time) 
++ -config: the configuration path to secrets.cfg containing the credentials and IP address of the camera sources (default: smart_surveillance/secrets.json)
++ -output: is the output path in which you would like to log the system (default: ../Reolink/log)
++ -clf: is the path to the personalized pretrained model to recognize a face (default: FaceRecognition/KNN_weighted.json)
+
+in this example we have activated the system just on one camera source called Eingang with the default settings
+
+*NOTE: For now this shell script is focused on our local system. But can be easily changed by you by just replacing the camera source names in the file that were set in the secrets.cfg file*
+
+
+
+
 
 ## Demonstrations
 The notebooks mentioned below should demonstrate the following parts
 ### 1) overcome a cold start of our system [01_Overcome_cold_start_face_recognition.ipynb](01_Overcome_cold_start_face_recognition.ipynb)
 #### quick start
 configure the paths for the different files on your machine in the configuration file [conf.json](conf.json)  
-*NOTE: the weights and architecture of FaceNet are stored in [keras-facenet-h5](keras-facenet-h5)*
+*NOTE: the weights and architecture of FaceNet are stored in [*smart_surveillance/FaceRecognition/ model.json, model.h5*](smart_surveillance/FaceRecognition/)*
 
 To detect, extract and cluster all the detected faces of your personal picture collection you need to run the script below in the terminal. This will output folders of faces that were clustered together and seem to be the identical person. In addition it will store all the extracted encodings, as well as paths to the cropped faces and original pictures in a json file.
 
