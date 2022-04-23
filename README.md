@@ -1,19 +1,19 @@
-# Welcome to our capstone project "smart survaillance"
-Welcome to our capstone project "smart survaillance" for our Master of Applied Data Science from the University of Michigan School of Information.
+# Welcome to our capstone project "smart surveillance"
+Welcome to our capstone project "smart surveillance" for our Master of Applied Data Science from the University of Michigan School of Information.
 
 The authors Akshar and Sandro formed a team to reduce annoying alerts of our current survaillance system by applying computer vison to identify if a tracked person on the video stream is unkown.
 
 A detailed report blog can be viewed at: [https://capstone.analyticsoverflow.com/report](https://capstone.analyticsoverflow.com/report)
 
 ## Data Challenge
-One of the biggest challenges that we faced early in our project was that there was no dataset "in the wild" that we could use for implementing our project since we wanted to personalize our system to actual users' environments which meant that we would need to know the personalization features to apply. Therefore, all of the data that we would need for training, testing, and evaluation would have to come from our own devices and sources. Here, our team member, Sandro Bruno generously offered his own home and camera setup to be the source of our dataset and fulfill our data requirements.
+One of the biggest challenges that we faced early in our project was that there was no dataset "in the wild" that we could use for implementing our project since we wanted to personalize our system to actual users' environments which meant that we would need to know the personalization features to apply. Therefore, all of the data that we would need for training, testing, and evaluation would have to come from our own devices and sources. Here, our team member, Sandro generously offered his own home and camera setup to be the source of our dataset and fulfill our data requirements.
 
 The streaming video feeds use a set of off-the-shelf IP cameras (Reolink RLC-423) and are run 24x7. There are actually a set of 6 cameras capturing video streams but our project will focus on a single stream from the camera labeled Eingang (translated to entrance). The stream is stored in a local storage array that has the capacity to store a few weeks worth of data. 
 
 ## Compilation Challenge
 As one can see on our building blocks of our current system below - it is a more complex and interdependent system which we accomplished on our local machines. 
 ![alt text](pics/building_blocks.png)
-However, it is difficult for us to make sure that all components of this system is reproducible without any error on another system in that short time. Therefore, we appologize for any inconvinience you may experience during the compilation of our system. We tried our best to document the different steps to compile the system. However, we still hope we can provide you a better understanding about what we have archived with this repository together with our detailed [report](https://capstone.analyticsoverflow.com/report)  and our [analysis tool](https://capstone.analyticsoverflow.com/analysis). In future we will defnetly continue working on this repository and are happy about any feedback. 
+However, it is difficult for us to make sure that all components of this system is reproducible without any error on another system in that short time. Therefore, we appologize for any inconvinience you may experience during the compilation of our system. We tried our best to document the different steps to compile the system. Neverteless, we hope we can provide you a better understanding about what we have archived with this repository together with our detailed [report](https://capstone.analyticsoverflow.com/report)  and our [analysis tool](https://capstone.analyticsoverflow.com/analysis). In future we will defnetly continue working on this repository and are happy about any feedback. 
 
 ## Getting started
 
@@ -268,14 +268,14 @@ Due to privacy issues we cannot share the pictures we have taken over the last 2
         + what is the encoding?
         + what is the closed distance to a known person?  
         + where do we store pictures of the detected faces?   
-    + [Reolink_motion_alerts_source.log](smart_surveillance/log/Reolink_motion_alerts_Eingang.log)
+    + [Reolink_motion_alerts_source.log](smart_surveillance/log/Reolink_motion_alerts_Eingang.log)  
+      *NOTE this is a subset of the [Reolink/log/](Reolink/log/Reolink_motion_alerts_Eingang.log) and had to be copied over because the container is not sharing the same file system - something that has to be changed in the future*  
       + In order to configure the system appropiatly the file provides the required camera settings such as 
         + source camera
         + resolution 
         + frames per second (FPS) 
         + alerting area (area of interest)
         + bit rate  
-*NOTE this is a subset of the [Reolink/log/](Reolink/log/Reolink_motion_alerts_Eingang.log) and had to be copied over because the container is not sharing the same file system - something that has to be changed in the future*  
 3) [Reolink/log/](Reolink/log/)
     this directory has the full log of incoming notifications of the camera
     + [Reolink_motion_alerts_source.log](Reolink/log/Reolink_motion_alerts_Eingang.log)
@@ -286,7 +286,7 @@ Due to privacy issues we cannot share the pictures we have taken over the last 2
         this directory contains all the images taken by the system from the detected person which is then used by MTCNN 
         + *FaceNet_output*  
         this directory contains all the detected faces which is then used by FaceNet to extract the features for the FaceRecognition 
-        + *on_queue*
+        + [*on_queue*](smart_surveillance/on_queue/)  
         this directory was meant to push the whole identification history of a tracked person that was identified as unknown to the messegeBroker module f). We did not manage in the short time to implement the messaging but the building blocks are already implemented and need to be connected only. For now the on_queue folder is created using a (from the system) still decoupled script called [test_SGDC_knn.py](smart_surveillance/test_SGDC_knn.py). This script is running KNN and SGD on existing log files to recognize the detected people and pushs these collected log files for one individual whenever it was identified as unknown. We need to do minor changes to this script to push these alerts in real time coupled with the system.      
 6) *smart_surveillance/output*
     + this contains a recorded video with the detected bounding boxes around the tracked people of the analyzed video streams.
