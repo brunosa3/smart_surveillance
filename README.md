@@ -249,11 +249,12 @@ project
 └───Reolink
 │   │
 │   └───log
-│       Reolink_motion_alerts_source.log│ 
+│       Reolink_motion_alerts_source.log 
 └── ...     
 ``` 
-Due to privacy issues we cannot share the pictures we have taken over the last 2 weeks of the people walking through our video streams. Every parent folder that was marked with a \* is together with its child folder not included in the repository.
-#### brief description of the output
+Due to privacy issues we cannot share the pictures we have taken over the last 2 weeks of the people walking through our video streams. Thereby, we have marked every parent folder with a \* which could not be included in the repository (same is true for child folders).
+
+#### Brief description of the output
 1) [smart_surveillance/log/](smart_surveillance/log/)  
     this directory consits of 3 different log file types:
     + [YOLO4_DeepSORT_source_overview.log](smart_surveillance/log/YOLO4_DeepSORT_Eingang_overview.log)
@@ -278,15 +279,17 @@ Due to privacy issues we cannot share the pictures we have taken over the last 2
 3) [Reolink/log/](Reolink/log/)
     this directory has the full log of incoming notifications of the camera
     + [Reolink_motion_alerts_source.log](Reolink/log/Reolink_motion_alerts_Eingang.log)
-      + every time a motion was detected the camera triggers an alarm which we encode as a 1 otherwise there is no entry in the log file to not explode the file
+      + whenever a motion was detected the camera triggers an alarm which we encode as a 1 otherwise there is no entry in the log file to not explode the file
 5) *smart_surveillance/FaceRecognition*
-    + this directory consits of 3 outputs with the following structure
-
-
-7) *smart_surveillance/FaceRecognition/FaceNet_input*
-8) *smart_surveillance/FaceRecognition/FaceNet_output*
-9) *smart_surveillance/FaceRecognition/on_queue*
-10) *smart_surveillance/output*
+    + this directory consits of 3 output directories:
+        + *FaceNet_input*  
+        this directory contains all the images taken by the system from the detected person which is then used by MTCNN 
+        + *FaceNet_output*  
+        this directory contains all the detected faces which is then used by FaceNet to extract the features for the FaceRecognition 
+        + *on_queue*
+        this directory was meant to push the whole identification history of a tracked person that was identified as unknown to the messegeBroker module f). We did not manage in the short time to implement the messaging but the building blocks are already implemented and need to be connected only. For now the on_queue folder is created using a (from the system) still decoupled script called [test_SGDC_knn.py](smart_surveillance/test_SGDC_knn.py). This script is running KNN and SGD on existing log files to recognize the detected people and pushs these collected log files for one individual whenever it was identified as unknown. We need to do minor changes to this script to push these alerts in real time coupled with the system.      
+6) *smart_surveillance/output*
+    + this contains a recorded video with the detected bounding boxes around the tracked people of the analyzed video streams.
 
 
 
