@@ -152,7 +152,7 @@ python main.py -c conf.json -r True
 For a better intuition how it works we have created a brief demo [01_Overcome_cold_start_face_recognition.ipynb](01_Overcome_cold_start_face_recognition.ipynb) that walk you through our scripts. All of that is intended to be executed just once before the system goes in production. After the system is in production our goal is to update the database with images coming direcly from the camera after the homeowner has provided feedback about the specific person (who is it?, do you want to get notified if this person got detected?). This should be a straight forward feature expansion of our system which we are planing to implement in the near future.
 
 
-## Ready to launching the system
+## Ready to launch the system
 We have created a shell script (*[smart_surveillance/run_scripts.sh](smart_surveillance/run_scripts.sh)*) for our convinience that is launching the different pices of the system as the following:  
 
 ```terminal
@@ -169,9 +169,124 @@ The script takes the following arguments:
 
 in this example we have activated the system just on one camera source called Eingang with the default settings
 
-*NOTE: For now this shell script is focused on our local system. But can be easily changed by you by just replacing the camera source names in the file that were set in the secrets.cfg file*
+*NOTE: For now this shell script is focused on our local system. But can be easily customized by just replacing the camera source names in the shell script with the names defined in the [smart_surveillance/secrets.cfg](smart_surveillance/secrets.cfg) file*
+
+if everything works out - you should find 2 processes run on your GPU. One process for module a) & b) and the other process is for module c) & d). Other then this you will aslo find a bunch of CPU proccess for each of the modules a),b),c) & d) as well as the monitoring of the reference alerting system. 
+![alt_text](pics/processes.png)
+
+### Output locations:
+```
+project
+│
+└───smart_surveillance
+│   │
+│   └───log
+│   │   YOLO4_DeepSORT_source_overview.log
+│   │   FaceNet_Eingang_overview.log
+│   │   Reolink_motion_alerts_source.log
+│   │   ...
+│   │
+│   └───output*
+│   │   camera_source.mp4
+│   │   ...
+│   │
+│   └───FaceRecognition
+│       │   
+│       └─── FaceNet_input* (contain pictures of tracked person)
+│       │    │
+│       │    └── camera_source (e.g.: Eingang)
+│       │        │ 
+│       │        └── in_of_interest_area
+│       │        │   └── trackID_1
+│       │        │   │   [YEAR][MONTH][DAY]_[h]_[min]_[sec]_[source_camera][frame_nr]_crop_track_[trackID_?].png
+│       │        │   │   ...  
+│       │        │   └── trackID_2
+│       │        │   │   [YEAR][MONTH][DAY]_[h]_[min]_[sec]_[source_camera][frame_nr]_crop_track_[trackID_?].png
+│       │        │   │   ...     
+│       │        │   └── trackID_n
+│       │        │        ...
+│       │        │
+│       │        └── out_of_interest_area
+│       │            └── trackID_1
+│       │            │   [YEAR][MONTH][DAY]_[h]_[min]_[sec]_[source_camera][frame_nr]_crop_track_[trackID_?].png
+│       │            │   ...  
+│       │            └── trackID_2
+│       │            │   [YEAR][MONTH][DAY]_[h]_[min]_[sec]_[source_camera][frame_nr]_crop_track_[trackID_?].png
+│       │            │   ...     
+│       │            └── trackID_n
+│       │                ...
+│       │
+│       └─── FaceNet_output* (contain pictures of detected faces within interest area)
+│       │    │ 
+│       │    └── camera_source (e.g.: Eingang)
+│       │        │ 
+│       │        └── in_of_interest_area
+│       │            └── trackID_1
+│       │            │   [YEAR][MONTH][DAY]_[h]_[min]_[sec]_[source_camera][frame_nr]_crop_track_[trackID_?].png
+│       │            │   ...  
+│       │            └── trackID_2
+│       │            │   [YEAR][MONTH][DAY]_[h]_[min]_[sec]_[source_camera][frame_nr]_crop_track_[trackID_?].png
+│       │            │   ...     
+│       │            └── trackID_n
+│       │                 ...
+│       │
+│       └─── on_queue (contain pictures of detected faces within interest area)
+│       │    │ 
+│       │    └── classifier (e.g.: KNN or SGD)
+│       │    │   │ 
+│       │    │   └── trackID_1
+│       │    │   │   └── [YEAR]-[MONTH]-[DAY]
+│       │    │   │   │   │        
+│       │    │   │   └──[hour]
+│       │    │   │   │   │  [YEAR]_[MONTH]_[DAY]_[h]_[min]_[sec]_[trackID_?].log    
+│       │    │   │   │   │   ...
+│       │    │   │   │   └──...
+│       │    │   │   └── ...
+│       │    │   └── ...
+│       │    └── ...
+│       └── ...
+│
+└───Reolink
+│   │
+│   └───log
+│       Reolink_motion_alerts_source.log│ 
+└── ...     
+``` 
+Due to privacy issues we cannot share the pictures we have taken over the last 2 weeks of the people walking through our video streams. Every parent folder that was marked with a \* is together with its child folder not included in the repository.
+#### brief description of the output
+1) [smart_surveillance/log/](smart_surveillance/log/)  
+    this directory consits of 3 different log file types:
+    + [YOLO4_DeepSORT_source_overview.log](smart_surveillance/log/YOLO4_DeepSORT_Eingang_overview.log)
+      + Backbone file which captures all the information ...
+        + if a person was detected, lost, reidentified or out of frame
+        + a path to a picture that was taken for that tracked person when it is within the interest area   
+    + [FaceNet_source_overview.log](smart_surveillance/log/FaceNet_Eingang_overview.log)
+      + this log file contains information about the identification of the tracked person ...
+        + was a face detected?
+        + do we know the person?
+        + what is the encoding?
+        + what is the closed distance to a known person?  
+        + where do we store pictures of the detected faces?   
+    + [Reolink_motion_alerts_source.log](smart_surveillance/log/Reolink_motion_alerts_Eingang.log)
+      + In order to configure the system appropiatly the file provides the required camera settings such as 
+        + source camera
+        + resolution 
+        + frames per second (FPS) 
+        + alerting area (area of interest)
+        + bit rate  
+*NOTE this is a subset of the [Reolink/log/](Reolink/log/Reolink_motion_alerts_Eingang.log) and had to be copied over because the container is not sharing the same file system - something that has to be changed in the future*  
+3) [Reolink/log/](Reolink/log/)
+    this directory has the full log of incoming notifications of the camera
+    + [Reolink_motion_alerts_source.log](Reolink/log/Reolink_motion_alerts_Eingang.log)
+      + every time a motion was detected the camera triggers an alarm which we encode as a 1 otherwise there is no entry in the log file to not explode the file
+5) *smart_surveillance/FaceRecognition*
+    + this directory consits of 3 outputs with the following structure
 
 
+7) *smart_surveillance/FaceRecognition/FaceNet_input*
+8) *smart_surveillance/FaceRecognition/FaceNet_output*
+9) *smart_surveillance/FaceRecognition/on_queue*
+10) *smart_surveillance/output*
 
 
 
