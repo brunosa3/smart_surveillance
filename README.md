@@ -310,14 +310,15 @@ Next you need to manually evaluate the correctnes of the clusters and label the 
 ```terminal
 python main.py -c conf.json -r True
 ```
-### 2) comparison of incoming alerts between the IP camera and YOLO/DeepSORT [02_evaluation_of_alerting_system.ipynb](02_evaluation_of_alerting_system.ipynb)
 
-### 3) how to detect faces 
+### 2) brief exploration of the reference database [04_Brief_database_exploration.ipynb](04_Brief_database_exploration.ipynb)
 
-### 4) how to upsample low resolution images
+Please download the reference [*Database*](https://drive.google.com/drive/folders/1OLql-G3klodLDTHCIkcC0m-5S-3VN7nZ?usp=sharing) into the *Database* folder of the repo. 
 
-### 5) how we have decided in or out of interest area?
+### 3) comparison of incoming alerts between the IP camera and YOLO/DeepSORT [02_evaluation_of_alerting_system.ipynb](02_evaluation_of_alerting_system.ipynb)
 
-### 4) evaluation of our models [03_model_evaluation.ipynb](03_model_evaluation.ipynb)   
+### 4) evaluation of our models [03_model_evaluation.ipynb](03_model_evaluation.ipynb) 
+Please download the reference [*Database*](https://drive.google.com/drive/folders/1OLql-G3klodLDTHCIkcC0m-5S-3VN7nZ?usp=sharing) into the *Database* folder of the repo.  
+
 *NOTE: the extensive manually labeled ground truth dataset is stored in [groundTruth](groundTruth) and the precomputed evaluation is stored in [FaceRecognition_evaluation.json](FaceRecognition_evaluation.json)*
 
