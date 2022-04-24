@@ -1,9 +1,9 @@
 # Welcome to our capstone project "smart surveillance"
 Welcome to our capstone project "smart surveillance" for our Master of Applied Data Science from the University of Michigan School of Information.
 
-The authors Akshar and Sandro formed a team to reduce annoying alerts of our current survaillance system by applying computer vison to identify if a tracked person on the video stream is unkown.
+The authors [Akshar and Sandro](https://capstone.analyticsoverflow.com/about) formed a team to reduce annoying alerts of our current survaillance system by applying computer vison to identify if a tracked person on the video stream is unkown.
 
-A detailed report blog can be viewed at: [https://capstone.analyticsoverflow.com/report](https://capstone.analyticsoverflow.com/report)
+A detailed [report blog](https://capstone.analyticsoverflow.com/report) can be viewed and the the data can be explored [interactively](https://capstone.analyticsoverflow.com/analysis)
 
 ## Data Challenge
 One of the biggest challenges that we faced early in our project was that there was no dataset "in the wild" that we could use for implementing our project since we wanted to personalize our system to actual users' environments which meant that we would need to know the personalization features to apply. Therefore, all of the data that we would need for training, testing, and evaluation would have to come from our own devices and sources. Here, our team member, Sandro generously offered his own home and camera setup to be the source of our dataset and fulfill our data requirements.
@@ -13,7 +13,7 @@ The streaming video feeds use a set of off-the-shelf IP cameras (Reolink RLC-423
 ## Compilation Challenge
 As one can see on our building blocks of our current system below - it is a more complex and interdependent system which we accomplished on our local machines. 
 ![alt text](pics/building_blocks.png)
-However, it is difficult for us to make sure that all components of this system is reproducible without any error on another system in that short time. Therefore, we appologize for any inconvinience you may experience during the compilation of our system. We tried our best to document the different steps to compile the system. Neverteless, we hope we can provide you a better understanding about what we have archived with this repository together with our detailed [report](https://capstone.analyticsoverflow.com/report)  and our [analysis tool](https://capstone.analyticsoverflow.com/analysis). In future we will defnetly continue working on this repository and are happy about any feedback. 
+However, it is difficult for us to make sure that all components of this system is reproducible without any error on another system in that short time. Therefore, we appologize for any inconvinience you may experience during the compilation of our system and are happy to hear any complications. We tried our best to document the different steps to compile the system. Neverteless, we hope we can provide you a better understanding about what we have archived with this repository together with our detailed [report](https://capstone.analyticsoverflow.com/report)  and our [analysis tool](https://capstone.analyticsoverflow.com/analysis). In future we will defnetly continue working on this repository and are happy about any feedback. 
 
 ## Getting started
 
@@ -71,7 +71,7 @@ In the [*Reolink/log/*](Reolink/log/) folder you can review the output of these 
 ### This part is needed for module b)
 Here we need to compile the multi object tracker we have customized from [FastMOT](https://github.com/GeekAlexis/FastMOT)
 #### Install for x86 Ubuntu
-Make sure to have [nvidia-docker](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/install-guide.html#docker) installed. The image requires NVIDIA Driver version >= 450 for Ubuntu 18.04 and >= 465.19.01 for Ubuntu 20.04. We have built and test it stabely with Driver version 510.47.03 and CUDA Version 11.6 on Ubuntu 20.04:
+Make sure to have [nvidia-docker](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/install-guide.html#docker) installed. The image requires NVIDIA Driver version >= 450 for Ubuntu 18.04 and >= 465.19.01 for Ubuntu 20.04. We have built and tested it stabely with Driver version 510.47.03 and CUDA Version 11.6 for a RTX-3080/3090 GPU equipped Ubuntu 20.04 server:
 ```terminal
 # change directory
 cd smart_surveillance/
@@ -108,7 +108,7 @@ check if you have cv2 available within the launched interactive docker if not yo
 ``` docker
 pip install --no-binary opencv-python opencv-python
 ```
-try if you can run the tracker on a test video just copy paste any video of your choice (with some people walking around) into the docker folder
+try if you can run the tracker on a test video just copy paste any video of your choice (with some people walking around) anywhere in the dockers filesystem
 ```docker
 python3 app.py --input-uri fastmod/REC_84194.mov --mot -o test.mp4
 ```
@@ -149,7 +149,7 @@ Next you need to manually evaluate the correctnes of the clusters and label the 
 python main.py -c conf.json -r True
 ```
 
-For a better intuition how it works we have created a brief demo [01_Overcome_cold_start_face_recognition.ipynb](01_Overcome_cold_start_face_recognition.ipynb) that walk you through our scripts. All of that is intended to be executed just once before the system goes in production. After the system is in production our goal is to update the database with images coming direcly from the camera after the homeowner has provided feedback about the specific person (who is it?, do you want to get notified if this person got detected?). This should be a straight forward feature expansion of our system which we are planing to implement in the near future.
+For a better intuition how it works we have created a brief demo [01_Overcome_cold_start_face_recognition.ipynb](01_Overcome_cold_start_face_recognition.ipynb) that walk you through our scripts. All of that is intended to be executed just once before the system goes in production. After the system is in production our goal is to update the database with images coming direcly from the camera after the homeowner has provided feedback about the specific person (e.g: who is it?, do you want to get notified if this person got detected? ...). This should be a straight forward feature expansion of our system which we are planing to implement in the near future.
 
 
 ## Ready to launch the system
@@ -182,7 +182,7 @@ project
 │   │
 │   └───log
 │   │   YOLO4_DeepSORT_source_overview.log
-│   │   FaceNet_Eingang_overview.log
+│   │   FaceNet_source_overview.log
 │   │   Reolink_motion_alerts_source.log
 │   │   ...
 │   │
@@ -198,39 +198,39 @@ project
 │       │        │ 
 │       │        └── in_of_interest_area
 │       │        │   └── trackID_1
-│       │        │   │   [YEAR][MONTH][DAY]_[h]_[min]_[sec]_[source_camera][frame_nr]_crop_track_[trackID_?].png
+│       │        │   │   [YEAR][MONTH][DAY]_[h]_[min]_[sec]_[source_camera][frame_nr]_crop_track_[trackID_1].png
 │       │        │   │   ...  
 │       │        │   └── trackID_2
-│       │        │   │   [YEAR][MONTH][DAY]_[h]_[min]_[sec]_[source_camera][frame_nr]_crop_track_[trackID_?].png
+│       │        │   │   [YEAR][MONTH][DAY]_[h]_[min]_[sec]_[source_camera][frame_nr]_crop_track_[trackID_2].png
 │       │        │   │   ...     
 │       │        │   └── trackID_n
 │       │        │        ...
 │       │        │
 │       │        └── out_of_interest_area
 │       │            └── trackID_1
-│       │            │   [YEAR][MONTH][DAY]_[h]_[min]_[sec]_[source_camera][frame_nr]_crop_track_[trackID_?].png
+│       │            │   [YEAR][MONTH][DAY]_[h]_[min]_[sec]_[source_camera][frame_nr]_crop_track_[trackID_1].png
 │       │            │   ...  
 │       │            └── trackID_2
-│       │            │   [YEAR][MONTH][DAY]_[h]_[min]_[sec]_[source_camera][frame_nr]_crop_track_[trackID_?].png
+│       │            │   [YEAR][MONTH][DAY]_[h]_[min]_[sec]_[source_camera][frame_nr]_crop_track_[trackID_2].png
 │       │            │   ...     
 │       │            └── trackID_n
 │       │                ...
 │       │
-│       └─── FaceNet_output* (contain pictures of detected faces within interest area)
+│       └─── FaceNet_output* (contain pictures of detected faces within interest area only)
 │       │    │ 
 │       │    └── camera_source (e.g.: Eingang)
 │       │        │ 
 │       │        └── in_of_interest_area
 │       │            └── trackID_1
-│       │            │   [YEAR][MONTH][DAY]_[h]_[min]_[sec]_[source_camera][frame_nr]_crop_track_[trackID_?].png
+│       │            │   [YEAR][MONTH][DAY]_[h]_[min]_[sec]_[source_camera][frame_nr]_crop_track_[trackID_1].png
 │       │            │   ...  
 │       │            └── trackID_2
-│       │            │   [YEAR][MONTH][DAY]_[h]_[min]_[sec]_[source_camera][frame_nr]_crop_track_[trackID_?].png
+│       │            │   [YEAR][MONTH][DAY]_[h]_[min]_[sec]_[source_camera][frame_nr]_crop_track_[trackID_2].png
 │       │            │   ...     
 │       │            └── trackID_n
 │       │                 ...
 │       │
-│       └─── on_queue (contain pictures of detected faces within interest area)
+│       └─── on_queue (contain pictures of detected faces within interest area only)
 │       │    │ 
 │       │    └── classifier (e.g.: KNN or SGD)
 │       │    │   │ 
@@ -238,7 +238,7 @@ project
 │       │    │   │   └── [YEAR]-[MONTH]-[DAY]
 │       │    │   │   │   │        
 │       │    │   │   └──[hour]
-│       │    │   │   │   │  [YEAR]_[MONTH]_[DAY]_[h]_[min]_[sec]_[trackID_?].log    
+│       │    │   │   │   │  [YEAR]_[MONTH]_[DAY]_[h]_[min]_[sec]_[trackID_1].log    
 │       │    │   │   │   │   ...
 │       │    │   │   │   └──...
 │       │    │   │   └── ...
@@ -280,16 +280,16 @@ Due to privacy issues we cannot share the pictures we have taken over the last 2
     this directory has the full log of incoming notifications of the camera
     + [Reolink_motion_alerts_source.log](Reolink/log/Reolink_motion_alerts_Eingang.log)
       + whenever a motion was detected the camera triggers an alarm which we encode as a 1 otherwise there is no entry in the log file to not explode the file
-5) *smart_surveillance/FaceRecognition*
+5) [smart_surveillance/FaceRecognition](smart_surveillance/FaceRecognition)
     + this directory consits of 3 output directories:
-        + *FaceNet_input*  
+        + *FaceNet_input* (not provided in repository due to privacy) 
         this directory contains all the images taken by the system from the detected person which is then used by MTCNN 
-        + *FaceNet_output*  
-        this directory contains all the detected faces which is then used by FaceNet to extract the features for the FaceRecognition 
+        + *FaceNet_output* (not provided in repository due to privacy)
+        this directory contains all the detected faces (images) which is then used by FaceNet to extract the features for the FaceRecognition 
         + [*on_queue*](smart_surveillance/on_queue/)  
-        this directory was meant to push the whole identification history of a tracked person that was identified as unknown to the messegeBroker module f). We did not manage in the short time to implement the messaging but the building blocks are already implemented and need to be connected only. For now the on_queue folder is created using a (from the system) still decoupled script called [test_SGDC_knn.py](smart_surveillance/test_SGDC_knn.py). This script is running KNN and SGD on existing log files to recognize the detected people and pushs these collected log files for one individual whenever it was identified as unknown. We need to do minor changes to this script to push these alerts in real time coupled with the system.      
+        this directory was meant to push the whole identification history of a tracked person that was identified as unknown to the messegeBroker module f). We did not manage in the short time to implement the messaging but the building blocks are already implemented and just need to be connected. For now the [*on_queue*](smart_surveillance/on_queue/) folder is created using a (from the system) still decoupled script called [test_SGDC_knn.py](smart_surveillance/test_SGDC_knn.py). This script is running KNN and SGD on existing log files to recognize the detected people and is pushing these collected log files for one individual whenever it was identified as unknown. In the future we will need to do some minor changes to this script in order to push these alerts in real time coupled with the system.      
 6) *smart_surveillance/output*
-    + this contains a recorded video with the detected bounding boxes around the tracked people of the analyzed video streams.
+    + this contains the recorded videos with the detected bounding boxes around the tracked people of the analyzed video streams.
 
 
 
@@ -313,7 +313,7 @@ python main.py -c conf.json -r True
 
 ### 2) brief exploration of the reference database [04_Brief_database_exploration.ipynb](04_Brief_database_exploration.ipynb)
 
-Please download the reference [*Database*](https://drive.google.com/drive/folders/1OLql-G3klodLDTHCIkcC0m-5S-3VN7nZ?usp=sharing) into the *Database* folder of the repo. 
+Please download the reference [*Database*](https://drive.google.com/drive/folders/1OLql-G3klodLDTHCIkcC0m-5S-3VN7nZ?usp=sharing) into the *Database* folder of the repo first. 
 
 ### 3) define in or out of interest area. Demonstrate why we recenter and upsample using super_resolution method prior feature extraction [05_demo_area_of_interest_recenter_upsample.ipynb](05_demo_area_of_interest_recenter_upsample.ipynb)
 
