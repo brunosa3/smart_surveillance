@@ -315,9 +315,11 @@ python main.py -c conf.json -r True
 
 Please download the reference [*Database*](https://drive.google.com/drive/folders/1OLql-G3klodLDTHCIkcC0m-5S-3VN7nZ?usp=sharing) into the *Database* folder of the repo. 
 
-### 3) comparison of incoming alerts between the IP camera and YOLO/DeepSORT [02_evaluation_of_alerting_system.ipynb](02_evaluation_of_alerting_system.ipynb)
+### 3) define in or out of interest area. Demonstrate why we recenter and upsample using super_resolution method prior feature extraction [05_demo_area_of_interest_recenter_upsample.ipynb](05_demo_area_of_interest_recenter_upsample.ipynb)
 
-### 4) evaluation of our models [03_model_evaluation.ipynb](03_model_evaluation.ipynb) 
+### 4) comparison of incoming alerts between the IP camera and YOLO/DeepSORT [02_evaluation_of_alerting_system.ipynb](02_evaluation_of_alerting_system.ipynb)
+
+### 5) evaluation of our models [03_model_evaluation.ipynb](03_model_evaluation.ipynb) 
 Please download the reference [*Database*](https://drive.google.com/drive/folders/1OLql-G3klodLDTHCIkcC0m-5S-3VN7nZ?usp=sharing) into the *Database* folder of the repo.  
 
 *NOTE: the extensive manually labeled ground truth dataset is stored in [groundTruth](groundTruth) and the precomputed evaluation is stored in [FaceRecognition_evaluation.json](FaceRecognition_evaluation.json)*
